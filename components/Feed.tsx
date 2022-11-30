@@ -16,7 +16,7 @@ const entries: Entry[] = [
     from: "Charaf Rezrazi",
     project: "react-query",
     url: "http://localhost:8080",
-    starredAt: dayjs().startOf("day").s,
+    starredAt: dayjs().startOf("day").toDate(),
   },
   {
     id: "2",
