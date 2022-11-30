@@ -1,19 +1,19 @@
 import { CheckCircleIcon } from "@heroicons/react/20/solid"
+import { Step } from "../types"
 
-const steps = [
-  { name: "Create account", href: "#", status: "complete" },
-  { name: "Profile information", href: "#", status: "current" },
-  { name: "Theme", href: "#", status: "upcoming" },
-  { name: "Preview", href: "#", status: "upcoming" },
-]
+interface Props {
+  steps: Step[]
+  current: Step
+}
 
-export default function Steps() {
+export default function Steps({ current, steps }: Props) {
   return (
     <ol role="list" className="space-y-6">
-      {steps.map((step) => (
-        <li key={step.name}>
-          {step.status === "complete" ? (
-            <a href={step.href} className="group">
+      {steps.map((step, index) => (
+        <li key={step.key}>
+          {index < steps.findIndex((s) => s.key === current.key) ||
+          index === steps.length - 1 ? (
+            <span className="group">
               <span className="flex items-start">
                 <span className="relative flex h-5 w-5 flex-shrink-0 items-center justify-center">
                   <CheckCircleIcon
@@ -25,13 +25,9 @@ export default function Steps() {
                   {step.name}
                 </span>
               </span>
-            </a>
-          ) : step.status === "current" ? (
-            <a
-              href={step.href}
-              className="flex items-start"
-              aria-current="step"
-            >
+            </span>
+          ) : step.key === current.key ? (
+            <span className="flex items-start" aria-current="step">
               <span
                 className="relative flex h-5 w-5 flex-shrink-0 items-center justify-center"
                 aria-hidden="true"
@@ -42,21 +38,19 @@ export default function Steps() {
               <span className="ml-3 text-sm font-medium text-emerald-400">
                 {step.name}
               </span>
-            </a>
+            </span>
           ) : (
-            <a href={step.href} className="group">
-              <div className="flex items-start">
-                <div
-                  className="relative flex h-5 w-5 flex-shrink-0 items-center justify-center"
-                  aria-hidden="true"
-                >
-                  <div className="h-2 w-2 rounded-full bg-zinc-400 group-hover:bg-zinc-200" />
-                </div>
-                <p className="ml-3 text-sm font-medium text-zinc-400 group-hover:text-zinc-200">
-                  {step.name}
-                </p>
+            <div className="flex items-start">
+              <div
+                className="relative flex h-5 w-5 flex-shrink-0 items-center justify-center"
+                aria-hidden="true"
+              >
+                <div className="h-2 w-2 rounded-full bg-zinc-400 group-hover:bg-zinc-200" />
               </div>
-            </a>
+              <p className="ml-3 text-sm font-medium text-zinc-400 group-hover:text-zinc-200">
+                {step.name}
+              </p>
+            </div>
           )}
         </li>
       ))}
