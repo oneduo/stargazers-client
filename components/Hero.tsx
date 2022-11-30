@@ -24,7 +24,7 @@ export default function Hero() {
                 >
                   <span
                     className="rounded-lg bg-emerald-50 dark:bg-emerald-800/40 border border-emerald-500 px-2 py-0.5 text-xs uppercase font-semibold text-emerald-500">
-                    News
+                    New
                   </span>
                   <span
                     className="inline-flex items-center space-x-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">

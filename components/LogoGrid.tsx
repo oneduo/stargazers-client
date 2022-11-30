@@ -49,10 +49,21 @@ const projects: Project[] = [
   {
     name: "Wordpress",
   },
-  // {
-  //   title: "Doctrine",
-  //   logo: <Doctrine />,
-  // },
+  {
+    name: "Statamic",
+  },
+  {
+    name: "Tighten",
+  },
+  {
+    name: "Tailwindcss",
+  },
+  {
+    name: "Beyondcode",
+  },
+  {
+    name: "PHPUnit",
+  },
 ]
 
 function Card({
