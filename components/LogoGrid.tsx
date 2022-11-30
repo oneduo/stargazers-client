@@ -29,7 +29,7 @@ function Card({
   return (
     <div
       className={clsx(
-        "group animate-fade-in rounded-3xl bg-white dark:bg-zinc-800 backdrop-blur-3xl p-8 aspect-square flex items-center justify-center opacity-0 shadow-sm shadow-gray-900/20",
+        "group animate-fade-in rounded-3xl bg-white dark:bg-zinc-800 backdrop-blur-3xl p-4 md:p-8 aspect-square flex items-center justify-center opacity-0 shadow-sm shadow-gray-900/20",
         className,
       )}
       style={{ animationDelay }}
