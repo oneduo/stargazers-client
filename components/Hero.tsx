@@ -1,10 +1,14 @@
-import { ChevronRightIcon, StarIcon } from "@heroicons/react/20/solid"
-import { HeroIllustration } from "@/components/HeroIllustration"
-import { Logo } from "@/components/Logo"
 import Link from "next/link"
-import LogoGrid from "@/components/LogoGrid"
+import { ChevronRightIcon, StarIcon } from "@heroicons/react/20/solid"
+import { HeroIllustration } from "./HeroIllustration"
+import { Logo } from "./Logo"
+import LogoGrid from "./LogoGrid"
 
-export default function Hero() {
+interface Props {
+  logos: string[]
+}
+
+export default function Hero({ logos }: Props) {
   return (
     <div className="isolate min-h-screen overflow-hidden">
       <div className="overflow-hidden pt-8 sm:pt-12 relative lg:py-36">
@@ -12,7 +16,10 @@ export default function Hero() {
         <div className="mx-auto w-full px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:grid lg:grid-cols-2">
           <div>
             <div className="w-36">
-              <Link className="text-black dark:text-white" href="/">
+              <Link
+                className="text-black dark:text-white hover:text-emerald-100"
+                href="/"
+              >
                 <Logo />
               </Link>
             </div>
@@ -22,12 +29,10 @@ export default function Hero() {
                   href="https://twitter.com/iamcharaf"
                   className="inline-flex space-x-4"
                 >
-                  <span
-                    className="rounded-lg bg-emerald-50 dark:bg-emerald-800/40 border border-emerald-500 px-2 py-0.5 text-xs uppercase font-semibold text-emerald-500">
+                  <span className="rounded-lg bg-emerald-50 dark:bg-emerald-800/40 border border-emerald-500 px-2 py-0.5 text-xs uppercase font-semibold text-emerald-500">
                     New
                   </span>
-                  <span
-                    className="inline-flex items-center space-x-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                  <span className="inline-flex items-center space-x-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">
                     <span>Just launched version 1.0</span>
                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                   </span>
@@ -84,7 +89,7 @@ export default function Hero() {
           <div className="py-12 sm:relative sm:mt-12 sm:py-16 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
             <div className="relative mr-0 sm:-mr-40 pl-4 sm:mx-auto sm:max-w-3xl sm:px-0 lg:h-full lg:max-w-none lg:pl-12">
               <div className="w-full h-full rounded-lg px-4 sm:px-10">
-                <LogoGrid />
+                <LogoGrid logos={logos} />
               </div>
             </div>
           </div>

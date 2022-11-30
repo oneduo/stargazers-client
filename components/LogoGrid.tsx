@@ -6,66 +6,6 @@ interface Project {
   name: string
 }
 
-const projects: Project[] = [
-  {
-    name: "Laravel",
-  },
-  {
-    name: "React",
-  },
-  {
-    name: "Vite",
-  },
-  {
-    name: "Vue",
-  },
-  {
-    name: "Next",
-  },
-  {
-    name: "Jest",
-  },
-  {
-    name: "Preact",
-  },
-  {
-    name: "Nuxt",
-  },
-  {
-    name: "Pest",
-  },
-  {
-    name: "Symfony",
-  },
-  {
-    name: "Spatie",
-  },
-  {
-    name: "Slim",
-  },
-  {
-    name: "PHP",
-  },
-  {
-    name: "Wordpress",
-  },
-  {
-    name: "Statamic",
-  },
-  {
-    name: "Tighten",
-  },
-  {
-    name: "Tailwindcss",
-  },
-  {
-    name: "Beyondcode",
-  },
-  {
-    name: "PHPUnit",
-  },
-]
-
 function Card({
   name,
   className,
@@ -89,15 +29,15 @@ function Card({
   return (
     <div
       className={clsx(
-        "animate-fade-in rounded-3xl bg-white dark:bg-zinc-800 p-8 aspect-square flex items-center justify-center opacity-0 shadow-sm shadow-gray-900/20",
+        "group animate-fade-in rounded-3xl bg-white dark:bg-zinc-800 backdrop-blur-3xl p-8 aspect-square flex items-center justify-center opacity-0 shadow-sm shadow-gray-900/20",
         className,
       )}
       style={{ animationDelay }}
       {...props}
     >
       <img
-        src={`/assets/logo/${name}.svg`}
-        className="text-white fill-white"
+        src={`/assets/logo/${name}`}
+        className="text-white fill-white opacity-70 group-hover:opacity-100 transition-opacity duration-300"
         alt={name}
       />
     </div>
@@ -169,7 +109,11 @@ function Column({
   )
 }
 
-export default function LogoGrid() {
+export default function LogoGrid({ logos }: { logos: string[] }) {
+  const projects = useMemo(() => {
+    return logos.map((name) => ({ name }))
+  }, [logos])
+
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: true, amount: 0.4 })
   let columns = split(projects, 3)
@@ -179,7 +123,7 @@ export default function LogoGrid() {
   return (
     <div
       ref={containerRef}
-      className="relative -mx-4 mt-16 grid h-[49rem] max-h-[150vh] grid-cols-3 items-start gap-8 overflow-hidden px-4 sm:mt-20 lg:grid-cols-4"
+      className="relative -mx-4 mt-16 grid h-[20rem] md:h-[49rem] max-h-[150vh] grid-cols-3 items-start gap-8 overflow-hidden px-4 sm:mt-20 lg:grid-cols-4"
     >
       {isInView && (
         <>
@@ -191,15 +135,11 @@ export default function LogoGrid() {
             projects={[...columns[1], ...columns[2][1]]}
             msPerPixel={15}
           />
-          <Column
-            projects={columns[2].flat()}
-            className="hidden lg:block"
-            msPerPixel={10}
-          />
+          <Column projects={columns[2].flat()} msPerPixel={10} />
         </>
       )}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-white dark:from-zinc-900" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-white dark:from-zinc-900" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-20 md:h-80 bg-gradient-to-b from-white dark:from-zinc-900" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 md:h-80 bg-gradient-to-t from-white dark:from-zinc-900" />
     </div>
   )
 }

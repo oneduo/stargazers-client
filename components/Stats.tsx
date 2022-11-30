@@ -1,4 +1,10 @@
-export default function Stats() {
+interface Props {
+  projects: number
+  stars: number
+  users: number
+}
+
+export default function Stats({ projects, stars, users }: Props) {
   return (
     <div className="pt-12 sm:pt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -18,7 +24,7 @@ export default function Stats() {
               unique projects starred
             </dt>
             <dd className="order-1 text-5xl font-bold tracking-tight text-emerald-400">
-              150
+              {projects}
             </dd>
           </div>
           <div className="flex flex-col border-t border-b border-zinc-100 dark:border-zinc-800 p-6 text-center sm:border-0 sm:border-r">
@@ -26,7 +32,7 @@ export default function Stats() {
               total stars given
             </dt>
             <dd className="order-1 text-5xl font-bold tracking-tight text-emerald-400">
-              2750
+              {stars}
             </dd>
           </div>
           <div className="flex flex-col border-t border-zinc-100 dark:border-zinc-800 p-6 text-center sm:border-0">
@@ -34,7 +40,7 @@ export default function Stats() {
               total users
             </dt>
             <dd className="order-1 text-5xl font-bold tracking-tight text-emerald-400">
-              533
+              {users}
             </dd>
           </div>
         </dl>

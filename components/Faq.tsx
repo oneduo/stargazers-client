@@ -1,7 +1,7 @@
 const faqs = [
   {
     id: 1,
-    question: "How does it work?",
+    question: "What is this ?",
     answer:
       "This app works by looking through your dependencies, and lists all the open source projects that you are using. You can then give stars to the projects that you like. You can also see the projects that you have starred, and remove them from the list if you want to.",
   },
@@ -9,7 +9,7 @@ const faqs = [
     id: 2,
     question: "How does it work?",
     answer:
-      "This app works by looking through your dependencies, and lists all the open source projects that you are using. You can then give stars to the projects that you like. You can also see the projects that you have starred, and remove them from the list if you want to.",
+      "Once we have parsed your dependencies, you need to login using your Github account, and we will then apply stars to the projects that you have selected.",
   },
 ]
 
