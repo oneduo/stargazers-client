@@ -2,10 +2,9 @@ import create from "zustand"
 import Upload from "@/components/Upload"
 import Selection from "@/components/Selection"
 import Login from "@/components/Login"
-import Processing from "@/components/Processing"
-import Finish from "@/components/Finish"
 import type { Step } from "../types"
 import type { Package } from "../generated/graphql"
+import { devtools } from "zustand/middleware"
 
 const steps: Step[] = [
   {
@@ -25,13 +24,11 @@ const steps: Step[] = [
   },
   {
     key: "processing",
-    name: "Running",
-    component: Processing,
+    name: "Processing",
   },
   {
     key: "results",
     name: "Finish",
-    component: Finish,
   },
 ]
 
@@ -40,37 +37,44 @@ interface State {
   steps: Step[]
   packages: Package[]
   loginUrl?: string
+  setStep: (step: Step) => void
   nextStep: () => void
   previousStep: () => void
   setPackages: (packages: Package[]) => void
+  replacePackage: (p: Package) => void
   setLoginUrl: (url: string) => void
+  reset: () => void
 }
 
-const useStore = create<State>()((set) => ({
-  step: steps[0],
-  steps,
-  packages: [],
-  nextStep: () =>
-    set((state) => ({
-      step: steps[
-        Math.min(
-          steps.findIndex((s) => s.key === state.step.key) + 1,
-          steps.length - 1,
-        )
-      ],
-    })),
-  previousStep: () =>
-    set((state) => ({
-      step: steps[
-        Math.max(steps.findIndex((s) => s.key === state.step.key) - 1, 0)
-      ],
-    })),
-  setPackages: (packages) => {
-    set({ packages })
-  },
-  setLoginUrl: (url) => {
-    set({ loginUrl: url })
-  },
-}))
+const useStore = create<State>()(
+  devtools((set) => ({
+    step: steps[0],
+    steps,
+    packages: [],
+    setStep: (step: Step) => set({ step }),
+    nextStep: () =>
+      set((state) => ({
+        step: steps[Math.min(steps.findIndex((s) => s.key === state.step.key) + 1, steps.length - 1)],
+      })),
+    previousStep: () =>
+      set((state) => ({
+        step: steps[Math.max(steps.findIndex((s) => s.key === state.step.key) - 1, 0)],
+      })),
+    setPackages: (packages) => {
+      set({ packages })
+    },
+    setLoginUrl: (url) => {
+      set({ loginUrl: url })
+    },
+    reset: () => {
+      set({ step: steps[0], packages: [], loginUrl: undefined })
+    },
+    replacePackage: (_package) => {
+      set((state) => ({
+        packages: state.packages.map((p) => (p.id.toString() === _package.id.toString() ? _package : p)),
+      }))
+    },
+  })),
+)
 
 export default useStore

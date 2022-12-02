@@ -64,13 +64,14 @@ export type Package = {
   __typename?: 'Package';
   id: Scalars['ID'];
   name: Scalars['String'];
-  pivot?: Maybe<PackageStargazer>;
+  pivot?: Maybe<PackageSession>;
   url: Scalars['String'];
 };
 
-export type PackageStargazer = {
-  __typename?: 'PackageStargazer';
+export type PackageSession = {
+  __typename?: 'PackageSession';
   starred_at?: Maybe<Scalars['DateTime']>;
+  status: Status;
 };
 
 /** Information about pagination using a Relay style cursor connection. */
@@ -122,7 +123,7 @@ export type Query = {
 
 
 export type QueryPackagesArgs = {
-  stargazer: Scalars['ID'];
+  session?: InputMaybe<Scalars['ID']>;
 };
 
 /** Information about pagination using a simple paginator. */
@@ -150,15 +151,11 @@ export enum SortOrder {
   Desc = 'DESC'
 }
 
-export type Subscription = {
-  __typename?: 'Subscription';
-  packageUpdated?: Maybe<Package>;
-};
-
-
-export type SubscriptionPackageUpdatedArgs = {
-  stargazer?: InputMaybe<Scalars['ID']>;
-};
+export enum Status {
+  Done = 'DONE',
+  Error = 'ERROR',
+  Pending = 'PENDING'
+}
 
 /** Specify if you want to include or exclude trashed results from a query. */
 export enum Trashed {
