@@ -1,7 +1,6 @@
 import React from "react"
-import { StepComponentProps } from "../types"
 
-export default function Finish({ next }: StepComponentProps) {
+export default function Finish() {
   return (
     <div className="flex flex-col rounded-md bg-zinc-800/60 backdrop-blur-md shadow-xl border-2 border border-zinc-800 p-8 w-full min-h-[40vh]">
       <h2 className="text-4xl text-zinc-200 mb-4 font-bold">Awesome !</h2>

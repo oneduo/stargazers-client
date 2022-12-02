@@ -1,18 +1,16 @@
 import { CheckCircleIcon } from "@heroicons/react/20/solid"
-import { Step } from "../types"
+import useStore from "../utils/store"
 
-interface Props {
-  steps: Step[]
-  current: Step
-}
+export default function Steps() {
+  const steps = useStore((state) => state.steps)
+  const current = useStore((state) => state.step)
 
-export default function Steps({ current, steps }: Props) {
   return (
     <ol role="list" className="space-y-6">
       {steps.map((step, index) => (
         <li key={step.key}>
           {index < steps.findIndex((s) => s.key === current.key) ||
-          index === steps.length - 1 ? (
+          steps.findIndex((s) => s.key === current.key) === steps.length - 1 ? (
             <span className="group">
               <span className="flex items-start">
                 <span className="relative flex h-5 w-5 flex-shrink-0 items-center justify-center">

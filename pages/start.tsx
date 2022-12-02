@@ -1,43 +1,12 @@
 import Footer from "@/components/Footer"
-import React, { useState } from "react"
+import React from "react"
 import { HeroIllustration } from "@/components/HeroIllustration"
 import { Logo } from "@/components/Logo"
 import Steps from "@/components/Steps"
-import Upload from "@/components/Upload"
-import { Step } from "../types"
-import Selection from "@/components/Selection"
-import Login from "@/components/Login"
-import Finish from "@/components/Finish"
-
-const steps = [
-  {
-    key: "upload",
-    name: "Upload a lock file",
-    component: Upload,
-  },
-  {
-    key: "selection",
-    name: "Select packages",
-    component: Selection,
-  },
-  {
-    key: "login",
-    name: "Login with Github",
-    component: Login,
-  },
-  {
-    key: "results",
-    name: "Finish",
-    component: Finish,
-  },
-]
+import useStore from "../utils/store"
 
 export default function Start() {
-  const [step, setStep] = useState<Step>(steps[0])
-
-  const next = () => {
-    setStep(steps[steps.findIndex((s) => s.key === step.key) + 1])
-  }
+  const step = useStore((state) => state.step)
 
   return (
     <div className="isolate overflow-hidden min-h-screen">
@@ -50,11 +19,11 @@ export default function Start() {
                 <Logo />
               </div>
               <div className="mt-20">
-                <Steps steps={steps} current={step} />
+                <Steps />
               </div>
             </div>
             <div className="col-span-9">
-              <step.component next={next} />
+              <step.component />
             </div>
           </div>
         </div>

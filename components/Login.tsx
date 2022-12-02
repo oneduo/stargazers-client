@@ -1,12 +1,18 @@
 import React from "react"
-import { StepComponentProps } from "../types"
+import useStore from "../utils/store"
+import Link from "next/link"
 
-export default function Login({ next }: StepComponentProps) {
+export default function Login() {
+  const url = useStore((state) => state.loginUrl)
+
+  if (!url) {
+    return null
+  }
+
   return (
     <div className="flex justify-center items-center rounded-md bg-zinc-800/60 backdrop-blur-md shadow-xl border-2 border border-zinc-800 px-6 pt-5 pb-6 w-full min-h-[40vh]">
-      <button
-        onClick={next}
-        type="button"
+      <Link
+        href={url}
         className="inline-flex items-center rounded-md border border-zinc-600 bg-black px-6 py-3 text-base font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         <svg
@@ -21,7 +27,7 @@ export default function Login({ next }: StepComponentProps) {
           />
         </svg>
         Sign in with GitHub
-      </button>
+      </Link>
     </div>
   )
 }
