@@ -4,6 +4,7 @@ import { NextSeo } from "next-seo"
 import { ApolloProvider } from "@apollo/client"
 import client from "../utils/apollo"
 import Head from "next/head"
+import { Analytics } from "@vercel/analytics/react"
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -21,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </div>
       </ApolloProvider>
+      <Analytics />
     </>
   )
 }
