@@ -7,17 +7,25 @@ import Team from "@/components/Team"
 import Stats from "@/components/Stats"
 import Hero from "@/components/Hero"
 import Sponsors from "@/components/Sponsors"
+import client from "@/utils/apollo"
+import { Statistics } from "@/generated/graphql"
+import STATS_QUERY from "@/graphql/statistics"
 
 interface Props {
   logos: string[]
+  statistics?: Statistics
 }
 
-export default function Home({ logos }: Props) {
+export default function Home({ statistics, logos }: Props) {
   return (
     <>
       <Hero logos={logos} />
       <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6 lg:px-8 flex flex-col gap-12">
-        <Stats projects={1500} stars={2300} users={2939} />
+        <Stats
+          projects={statistics?.projectsCount ?? 0}
+          stars={statistics?.starsCount ?? 0}
+          users={statistics?.usersCount ?? 0}
+        />
         <Faq />
         <Team />
         <Sponsors />
@@ -31,9 +39,20 @@ export async function getServerSideProps() {
   const directoryPath = join(process.cwd(), "public/assets/logo")
   const logos = await readdir(directoryPath)
 
+  let statistics: Statistics | undefined = undefined
+
+  try {
+    const { data } = await client.query<{ statistics: Statistics }>({
+      query: STATS_QUERY,
+    })
+
+    statistics = data.statistics
+  } catch (e) {}
+
   return {
     props: {
       logos,
+      statistics,
     },
   }
 }

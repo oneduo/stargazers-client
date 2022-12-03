@@ -1,5 +1,5 @@
 import { CheckCircleIcon } from "@heroicons/react/20/solid"
-import useStore from "../utils/store"
+import useStore from "@/utils/store"
 
 export default function Steps() {
   const steps = useStore((state) => state.steps)
@@ -26,28 +26,18 @@ export default function Steps() {
             </span>
           ) : step.key === current.key ? (
             <span className="flex items-start" aria-current="step">
-              <span
-                className="relative flex h-5 w-5 flex-shrink-0 items-center justify-center"
-                aria-hidden="true"
-              >
+              <span className="relative flex h-5 w-5 flex-shrink-0 items-center justify-center" aria-hidden="true">
                 <span className="absolute h-4 w-4 rounded-full bg-emerald-800/60 animate-ping" />
                 <span className="relative block h-2 w-2 rounded-full bg-emerald-400" />
               </span>
-              <span className="ml-3 text-sm font-medium text-emerald-400">
-                {step.name}
-              </span>
+              <span className="ml-3 text-sm font-medium text-emerald-400">{step.name}</span>
             </span>
           ) : (
             <div className="flex items-start">
-              <div
-                className="relative flex h-5 w-5 flex-shrink-0 items-center justify-center"
-                aria-hidden="true"
-              >
+              <div className="relative flex h-5 w-5 flex-shrink-0 items-center justify-center" aria-hidden="true">
                 <div className="h-2 w-2 rounded-full bg-zinc-400 group-hover:bg-zinc-200" />
               </div>
-              <p className="ml-3 text-sm font-medium text-zinc-400 group-hover:text-zinc-200">
-                {step.name}
-              </p>
+              <p className="ml-3 text-sm font-medium text-zinc-400 group-hover:text-zinc-200">{step.name}</p>
             </div>
           )}
         </li>

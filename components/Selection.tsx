@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import useStore from "../utils/store"
-import { Package } from "../generated/graphql"
+import useStore from "@/utils/store"
+import { Package } from "@/generated/graphql"
 import { useMutation } from "@apollo/client"
-import STAR_MUTATION from "../graphql/star"
-import Spinner from "@/components/Spinner"
+import STAR_MUTATION from "@/graphql/star"
+import Button from "@/components/Button"
 
 export default function Selection() {
   const packages = useStore((state) => state.packages)
@@ -123,13 +123,8 @@ export default function Selection() {
           </div>
         </div>
       </fieldset>
-      <button
-        onClick={submit}
-        className="rounded-md border border-emerald-400 dark:outline-emerald-500 px-5 py-3 text-sm font-medium text-white dark:text-emerald-500 shadow-xl bg-emerald-400 dark:bg-emerald-800/20 hover:bg-emerald-500 dark:hover:bg-emerald-800/60 focus:outline-none focus:ring-1 focus:outline-emerald-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed inline-flex justify-center"
-        disabled={selection.length === 0}
-      >
-        {loading ? <Spinner className="text-white h-5 w-5" /> : "Continue"}
-      </button>
+
+      <Button label="Continue" onClick={submit} disabled={selection.length === 0} loading={loading} />
 
       {error && (
         <div className="text-red-500 text-center w-full mt-2 bg-red-800/20 border border-red-800 p-2 rounded-lg text-sm">

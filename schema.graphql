@@ -9,6 +9,7 @@ scalar DateTimeTz
 type Query {
   packages(session: ID): [Package!]
   session(session: ID!): Session
+  statistics: Statistics!
 }
 type Package {
   id: ID!
@@ -27,6 +28,11 @@ type Session {
 }
 type Stargazer {
   username: String!
+}
+type Statistics {
+  projectsCount: Int!
+  starsCount: Int!
+  usersCount: Int!
 }
 type Mutation {
   upload(upload: Upload): [Package!]

@@ -22,6 +22,24 @@
     "paths": {
       "@/components/*": [
         "components/*"
+      ],
+      "@/pages/*": [
+        "pages/*"
+      ],
+      "@/styles/*": [
+        "styles/*"
+      ],
+      "@/utils/*": [
+        "utils/*"
+      ],
+      "@/layouts/*": [
+        "layouts/*"
+      ],
+      "@/generated/*": [
+        "generated/*"
+      ],
+      "@/graphql/*": [
+        "graphql/*"
       ]
     }
   },

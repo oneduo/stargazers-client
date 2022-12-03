@@ -1,13 +1,9 @@
 import React, { ReactNode } from "react"
-import { HeroIllustration } from "@/components/HeroIllustration"
-import { Logo } from "@/components/Logo"
-import Steps from "@/components/Steps"
 import Link from "next/link"
-import Stats from '@/components/Stats'
-import Faq from '@/components/Faq'
-import Team from '@/components/Team'
-import Sponsors from '@/components/Sponsors'
-import Footer from '@/components/Footer'
+import HeroIllustration from "@/components/HeroIllustration"
+import Logo from "@/components/Logo"
+import Steps from "@/components/Steps"
+import Footer from "@/components/Footer"
 
 interface Props {
   withoutSidebar?: boolean
@@ -44,13 +40,9 @@ export default function AppLayout({ withoutSidebar, children }: Props) {
           </div>
         </div>
         {withoutSidebar && (
-            <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6 lg:px-8 flex flex-col gap-12">
-              <Stats projects={1500} stars={2300} users={2939} />
-              <Faq />
-              <Team />
-              <Sponsors />
-              <Footer />
-            </div>
+          <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6 lg:px-8 flex flex-col gap-12">
+            <Footer />
+          </div>
         )}
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from "react"
-import useStore from "../utils/store"
+import useStore from "@/utils/store"
 import Link from "next/link"
 
 export default function Login() {

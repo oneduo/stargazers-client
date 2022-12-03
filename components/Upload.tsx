@@ -4,14 +4,12 @@ import { useDropzone } from "react-dropzone"
 import clsx from "clsx"
 import Spinner from "@/components/Spinner"
 import { useMutation } from "@apollo/client"
-import UPLOAD_MUTATION from "../graphql/upload"
-import useStore from "../utils/store"
-import { Package } from "../generated/graphql"
+import UPLOAD_MUTATION from "@/graphql/upload"
+import useStore from "@/utils/store"
+import type { Package } from "@/generated/graphql"
 
 export default function Upload() {
-  const [mutate, { data, loading, error }] = useMutation<{ upload: Package[] }>(
-    UPLOAD_MUTATION,
-  )
+  const [mutate, { data, loading, error }] = useMutation<{ upload: Package[] }>(UPLOAD_MUTATION)
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
@@ -60,18 +58,12 @@ export default function Upload() {
                 </label>
                 <p className="pl-1">or drag and drop a file here</p>
               </div>
-              <div className="inline-flex gap-2 text-xs text-zinc-400 items-center">
-                <code className="bg-zinc-900 py-1 px-2 rounded-lg">
-                  composer.lock
-                </code>
-                <span>or</span>
-                <code className="bg-zinc-900 py-1 px-2 rounded-lg">
-                  package-lock.json
-                </code>
+              <div className="inline-flex gap-2 text-xs text-zinc-400 items-center justify-center">
+                <code className="bg-zinc-900 py-1 px-2 rounded-lg">composer.lock</code>
+                {/*<span>or</span>*/}
+                {/*<code className="bg-zinc-900 py-1 px-2 rounded-lg">package-lock.json</code>*/}
               </div>
-              <p className="text-xs text-zinc-700">
-                json file only, up to 10MB
-              </p>
+              <p className="text-xs text-zinc-700">json file only, up to 10MB</p>
             </div>
           )}
         </div>

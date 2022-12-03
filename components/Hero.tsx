@@ -1,8 +1,9 @@
-import Link from "next/link"
+import NextLink from "next/link"
 import { ChevronRightIcon, StarIcon } from "@heroicons/react/20/solid"
-import { HeroIllustration } from "./HeroIllustration"
-import { Logo } from "./Logo"
-import LogoGrid from "./LogoGrid"
+import HeroIllustration from "@/components//HeroIllustration"
+import Logo from "@/components//Logo"
+import LogoGrid from "@/components//LogoGrid"
+import Link from "@/components/Link"
 
 interface Props {
   logos: string[]
@@ -16,9 +17,9 @@ export default function Hero({ logos }: Props) {
         <div className="mx-auto w-full px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:grid lg:grid-cols-2">
           <div>
             <div className="w-36">
-              <Link className="text-black dark:text-white hover:text-emerald-100" href="/">
+              <NextLink className="text-black dark:text-white hover:text-emerald-100" href="/">
                 <Logo />
-              </Link>
+              </NextLink>
             </div>
             <div className="mt-20 flex flex-col gap-6 w-full">
               <div>
@@ -49,12 +50,7 @@ export default function Hero({ logos }: Props) {
                   <span className="text-pink-500"> sponsoring </span>these creators and their projects.
                 </p>
               </div>
-              <Link
-                href="/star"
-                className="w-full text-center rounded-md outline outline-emerald-400 dark:outline-emerald-500 uppercase px-5 py-3 text-lg font-medium text-white dark:text-emerald-500 shadow-xl bg-emerald-400 dark:bg-emerald-800/20 hover:bg-emerald-500 dark:hover:bg-emerald-800/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 sm:px-10 hover:text-white"
-              >
-                Get started
-              </Link>
+              <Link href="/star">Get started</Link>
               <div className="mt-6">
                 <div className="inline-flex items-center gap-2">
                   <div className="flex flex-shrink-0">

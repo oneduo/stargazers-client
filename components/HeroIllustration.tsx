@@ -1,6 +1,6 @@
 import { useId } from "react"
 
-export function HeroIllustration() {
+export default function HeroIllustration() {
   let id = useId()
 
   return (
@@ -16,20 +16,9 @@ export function HeroIllustration() {
           stroke="#D4D4D4"
           strokeOpacity="0.2"
         />
-        <path
-          d="M513 1025C230.23 1025 1 795.77 1 513"
-          stroke={`url(#${id}-gradient-1)`}
-          strokeLinecap="round"
-        />
+        <path d="M513 1025C230.23 1025 1 795.77 1 513" stroke={`url(#${id}-gradient-1)`} strokeLinecap="round" />
         <defs>
-          <linearGradient
-            id={`${id}-gradient-1`}
-            x1="1"
-            y1="513"
-            x2="1"
-            y2="1025"
-            gradientUnits="userSpaceOnUse"
-          >
+          <linearGradient id={`${id}-gradient-1`} x1="1" y1="513" x2="1" y2="1025" gradientUnits="userSpaceOnUse">
             <stop stopColor="#02d399" />
             <stop offset="1" stopColor="#02d399" stopOpacity="0" />
           </linearGradient>
@@ -46,20 +35,9 @@ export function HeroIllustration() {
           stroke="#D4D4D4"
           strokeOpacity="0.2"
         />
-        <path
-          d="M913 513c0 220.914-179.086 400-400 400"
-          stroke={`url(#${id}-gradient-2)`}
-          strokeLinecap="round"
-        />
+        <path d="M913 513c0 220.914-179.086 400-400 400" stroke={`url(#${id}-gradient-2)`} strokeLinecap="round" />
         <defs>
-          <linearGradient
-            id={`${id}-gradient-2`}
-            x1="913"
-            y1="513"
-            x2="913"
-            y2="913"
-            gradientUnits="userSpaceOnUse"
-          >
+          <linearGradient id={`${id}-gradient-2`} x1="913" y1="513" x2="913" y2="913" gradientUnits="userSpaceOnUse">
             <stop stopColor="#02d399" />
             <stop offset="1" stopColor="#02d399" stopOpacity="0" />
           </linearGradient>

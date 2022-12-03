@@ -120,6 +120,7 @@ export type Query = {
   __typename?: 'Query';
   packages?: Maybe<Array<Package>>;
   session?: Maybe<Session>;
+  statistics: Statistics;
 };
 
 
@@ -167,6 +168,13 @@ export enum SortOrder {
 export type Stargazer = {
   __typename?: 'Stargazer';
   username: Scalars['String'];
+};
+
+export type Statistics = {
+  __typename?: 'Statistics';
+  projectsCount: Scalars['Int'];
+  starsCount: Scalars['Int'];
+  usersCount: Scalars['Int'];
 };
 
 export enum Status {

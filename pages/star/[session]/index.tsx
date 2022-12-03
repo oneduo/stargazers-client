@@ -8,7 +8,7 @@ import {
   ClipboardDocumentIcon,
   ExclamationCircleIcon,
   StarIcon,
-} from '@heroicons/react/20/solid'
+} from "@heroicons/react/20/solid"
 import pusher from "../../../utils/pusher"
 import AppLayout from "../../../layouts/AppLayout"
 import useStore from "../../../utils/store"
@@ -28,7 +28,7 @@ const Session = ({ session, packages: ssrPackages }: Props) => {
   const setPackages = useStore((state) => state.setPackages)
   const packages = useStore((state) => state.packages)
   const replacePackage = useStore((state) => state.replacePackage)
-  const [isCopied, setIsCopied] = useState<boolean>(false);
+  const [isCopied, setIsCopied] = useState<boolean>(false)
 
   const finished = packages.filter((p) => p.pivot?.status !== Status.Pending).length === packages.length
 
@@ -65,23 +65,22 @@ const Session = ({ session, packages: ssrPackages }: Props) => {
   }, [finished, setStep, steps])
 
   async function copyTextToClipboard(text: string) {
-    if ('clipboard' in navigator) {
-      return await navigator.clipboard.writeText(text);
+    if ("clipboard" in navigator) {
+      return await navigator.clipboard.writeText(text)
     } else {
-      return document.execCommand('copy', true, text);
+      return document.execCommand("copy", true, text)
     }
   }
 
   const share = `${process.env.NEXT_PUBLIC_APP_URL}/star/${session}/share`
 
   const handleCopyClick = () => {
-    copyTextToClipboard(share)
-        .then(() => {
-          setIsCopied(true);
-          setTimeout(() => {
-            setIsCopied(false);
-          }, 1500);
-        })
+    copyTextToClipboard(share).then(() => {
+      setIsCopied(true)
+      setTimeout(() => {
+        setIsCopied(false)
+      }, 1500)
+    })
   }
 
   return (
@@ -93,11 +92,14 @@ const Session = ({ session, packages: ssrPackages }: Props) => {
             You have successfully starred <span className="text-emerald-500">{packages.length}</span> packages on
             GitHub. <br />
             <span className="text-sm">
-              You may use this link to share your favorites packages and let others star them too.
+              You may use this link to share your favorite packages and let others star them too.
             </span>
           </h2>
-          <div className="w-full inline-flex justify-center items-center bg-zinc-600/20 gap-2 text-zinc-300 rounded-lg py-4 px-2 hover:text-emerald-500 cursor-pointer" onClick={handleCopyClick}>
-            <code>{ share }</code>
+          <div
+            className="w-full inline-flex justify-center items-center bg-zinc-600/20 gap-2 text-zinc-300 rounded-lg py-4 px-2 hover:text-emerald-500 cursor-pointer"
+            onClick={handleCopyClick}
+          >
+            <code>{share}</code>
             {!isCopied && <ClipboardDocumentIcon className="w-5 h-5" />}
             {isCopied && <ClipboardDocumentCheckIcon className="w-5 h-5" />}
           </div>
@@ -150,6 +152,7 @@ const Session = ({ session, packages: ssrPackages }: Props) => {
                   </span>
                 ))}
               </div>
+              <div className="pointer-events-none sticky bottom-0 h-20 md:h-40 bg-gradient-to-t from-white dark:from-zinc-900 rounded-b-lg" />
             </div>
           </div>
         </fieldset>
