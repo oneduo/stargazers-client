@@ -10,6 +10,7 @@ import Sponsors from "@/components/Sponsors"
 import client from "@/utils/apollo"
 import { Statistics } from "@/generated/graphql"
 import STATS_QUERY from "@/graphql/statistics"
+import { captureException } from "@sentry/core"
 
 interface Props {
   logos: string[]
@@ -47,7 +48,9 @@ export async function getServerSideProps() {
     })
 
     statistics = data.statistics
-  } catch (e) {}
+  } catch (e) {
+    captureException(e)
+  }
 
   return {
     props: {

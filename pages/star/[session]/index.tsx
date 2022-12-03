@@ -14,6 +14,7 @@ import useStore from "../../../utils/store"
 import PACKAGES_QUERY from "../../../graphql/packages"
 import { GetServerSideProps } from "next"
 import client from "../../../utils/apollo"
+import { captureException } from "@sentry/core"
 
 interface Props {
   packages: Package[]
@@ -183,6 +184,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     }
   } catch (e) {
+    captureException(e)
+
     return {
       notFound: true,
     }

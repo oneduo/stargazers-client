@@ -3,6 +3,7 @@ import { NextRequest } from "next/server"
 import client from "@/utils/apollo"
 import { Package, Stargazer } from "@/generated/graphql"
 import SESSION_QUERY from "@/graphql/session"
+import { captureException } from "@sentry/core"
 
 export const config = {
   runtime: "experimental-edge",
@@ -46,6 +47,8 @@ export default async function og(req: NextRequest) {
       },
     )
   } catch (e) {
+    captureException(e)
+
     return new Response(`Failed to generate the image`, {
       status: 500,
     })

@@ -7,6 +7,7 @@ import { useMutation } from "@apollo/client"
 import UPLOAD_MUTATION from "@/graphql/upload"
 import useStore from "@/utils/store"
 import type { Package } from "@/generated/graphql"
+import { captureException } from "@sentry/core"
 
 export default function Upload() {
   const [mutate, { data, loading, error }] = useMutation<{ upload: Package[] }>(UPLOAD_MUTATION)
@@ -15,7 +16,9 @@ export default function Upload() {
     async (acceptedFiles: File[]) => {
       try {
         await mutate({ variables: { upload: acceptedFiles[0] } })
-      } catch (e) {}
+      } catch (e) {
+        captureException(e)
+      }
     },
     [mutate],
   )

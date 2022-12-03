@@ -4,6 +4,7 @@ import { Package } from "@/generated/graphql"
 import { useMutation } from "@apollo/client"
 import STAR_MUTATION from "@/graphql/star"
 import Button from "@/components/Button"
+import { captureException } from "@sentry/core"
 
 export default function Selection() {
   const packages = useStore((state) => state.packages)
@@ -48,7 +49,9 @@ export default function Selection() {
 
     try {
       await mutate({ variables: { packages: selection.map((s) => s.id) } })
-    } catch (e) {}
+    } catch (e) {
+      captureException(e)
+    }
   }
 
   useEffect(() => {
