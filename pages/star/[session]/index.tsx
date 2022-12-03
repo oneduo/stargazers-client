@@ -3,7 +3,6 @@ import { Channel } from "pusher-js"
 import { Package, Status } from "../../../generated/graphql"
 import Spinner from "@/components/Spinner"
 import {
-  CheckIcon,
   ClipboardDocumentCheckIcon,
   ClipboardDocumentIcon,
   ExclamationCircleIcon,
@@ -85,7 +84,7 @@ const Session = ({ session, packages: ssrPackages }: Props) => {
 
   return (
     <AppLayout>
-      {finished && (
+      {packages && finished && (
         <div className="mb-8 rounded-md bg-zinc-100 dark:bg-zinc-800/60 backdrop-blur-md shadow-xl border border-zinc-200 dark:border-zinc-800 px-6 pt-5 pb-6 w-full flex flex-col gap-6">
           <h1 className="text-yellow-500 text-2xl">Congratulations!</h1>
           <h2 className="text-zinc-400 text-md">

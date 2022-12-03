@@ -4,7 +4,6 @@ import Selection from "@/components/Selection"
 import Login from "@/components/Login"
 import type { Step } from "../types"
 import type { Package } from "../generated/graphql"
-import { devtools } from "zustand/middleware"
 
 const steps: Step[] = [
   {
@@ -32,7 +31,7 @@ const steps: Step[] = [
   },
 ]
 
-interface State {
+export interface State {
   step: Step
   steps: Step[]
   packages: Package[]
@@ -46,35 +45,33 @@ interface State {
   reset: () => void
 }
 
-const useStore = create<State>()(
-  devtools((set) => ({
-    step: steps[0],
-    steps,
-    packages: [],
-    setStep: (step: Step) => set({ step }),
-    nextStep: () =>
-      set((state) => ({
-        step: steps[Math.min(steps.findIndex((s) => s.key === state.step.key) + 1, steps.length - 1)],
-      })),
-    previousStep: () =>
-      set((state) => ({
-        step: steps[Math.max(steps.findIndex((s) => s.key === state.step.key) - 1, 0)],
-      })),
-    setPackages: (packages) => {
-      set({ packages })
-    },
-    setLoginUrl: (url) => {
-      set({ loginUrl: url })
-    },
-    reset: () => {
-      set({ step: steps[0], packages: [], loginUrl: undefined })
-    },
-    replacePackage: (_package) => {
-      set((state) => ({
-        packages: state.packages.map((p) => (p.id.toString() === _package.id.toString() ? _package : p)),
-      }))
-    },
-  })),
-)
+const useStore = create<State>()((set) => ({
+  step: steps[0],
+  steps,
+  packages: [],
+  setStep: (step: Step) => set({ step }),
+  nextStep: () =>
+    set((state) => ({
+      step: steps[Math.min(steps.findIndex((s) => s.key === state.step.key) + 1, steps.length - 1)],
+    })),
+  previousStep: () =>
+    set((state) => ({
+      step: steps[Math.max(steps.findIndex((s) => s.key === state.step.key) - 1, 0)],
+    })),
+  setPackages: (packages) => {
+    set({ packages })
+  },
+  setLoginUrl: (url) => {
+    set({ loginUrl: url })
+  },
+  reset: () => {
+    set({ step: steps[0], packages: [], loginUrl: undefined })
+  },
+  replacePackage: (_package) => {
+    set((state) => ({
+      packages: state.packages.map((p) => (p.id.toString() === _package.id.toString() ? _package : p)),
+    }))
+  },
+}))
 
 export default useStore

@@ -40,6 +40,9 @@
       ],
       "@/graphql/*": [
         "graphql/*"
+      ],
+      "@/contexts/*": [
+        "contexts/*"
       ]
     }
   },
