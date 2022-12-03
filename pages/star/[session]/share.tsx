@@ -1,14 +1,15 @@
 import React from "react"
-import { Package, Session, Status } from "../../../generated/graphql"
+import { Package, Session, Status } from "@/generated/graphql"
 import Spinner from "@/components/Spinner"
 import { ExclamationCircleIcon, StarIcon } from "@heroicons/react/20/solid"
-import AppLayout from "../../../layouts/AppLayout"
+import AppLayout from "@/layouts/AppLayout"
 import { GetServerSideProps } from "next"
-import client from "../../../utils/apollo"
-import SESSION_QUERY from "../../../graphql/session"
+import client from "@/utils/apollo"
+import SESSION_QUERY from "@/graphql/session"
 import Link from "@/components/Link"
 import { NextSeo } from "next-seo"
 import { useRouter } from "next/router"
+import { captureException } from "@sentry/core"
 
 interface Props {
   packages: Package[]
@@ -130,6 +131,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     }
   } catch (e) {
+    captureException(e)
+
     return {
       notFound: true,
     }

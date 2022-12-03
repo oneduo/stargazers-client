@@ -9,18 +9,40 @@ export const config = {
   runtime: "experimental-edge",
 }
 
-export default async function og(req: NextRequest) {
+const getSession = async (session: string | null) => {
+  if (!session) {
+    return undefined
+  }
+
   try {
-    const { searchParams } = new URL(req.url)
-
-    const session = searchParams.get("session")
-
     const { data } = await client.query<{ session: { stargazer?: Stargazer; packages: Package[] } }>({
       query: SESSION_QUERY,
       variables: {
         session: session,
       },
     })
+
+    return data
+  } catch (e) {
+    captureException(e)
+
+    return undefined
+  }
+}
+
+export default async function og(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url)
+
+    const session = searchParams.get("session")
+
+    const data = await getSession(session)
+
+    if (data === undefined) {
+      return new Response(`Failed to generate the image`, {
+        status: 500,
+      })
+    }
 
     return new ImageResponse(
       (
