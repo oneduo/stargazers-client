@@ -1,17 +1,19 @@
 import React from "react"
-import { Package, Status } from "../../../generated/graphql"
+import { Package, Session, Status } from "../../../generated/graphql"
 import Spinner from "@/components/Spinner"
 import { ExclamationCircleIcon, StarIcon } from "@heroicons/react/20/solid"
 import AppLayout from "../../../layouts/AppLayout"
-import PACKAGES_QUERY from "../../../graphql/packages"
 import { GetServerSideProps } from "next"
 import client from "../../../utils/apollo"
+import SESSION_QUERY from '../../../graphql/session'
+import Link from 'next/link'
 
 interface Props {
   packages: Package[]
+  username?: string
 }
 
-const Session = ({ packages }: Props) => {
+const Session = ({ packages, username }: Props) => {
   return (
     <AppLayout withoutSidebar={true}>
       <div className="relative">
@@ -24,7 +26,7 @@ const Session = ({ packages }: Props) => {
             <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
               <h1 className="text-center text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
                 <span className="block text-zinc-300">
-                  Mika has starred <span className="text-yellow-500">252</span> packages
+                  <span className="text-yellow-500">{ username }</span> has starred <span className="text-yellow-500">252</span> packages
                 </span>
                 <span className="block text-emerald-500">Supporting the open source communities</span>
               </h1>
@@ -33,9 +35,12 @@ const Session = ({ packages }: Props) => {
                 appreciation by giving a little back.
               </p>
               <div className="inline-flex justify-center mt-10 w-full">
-                <button className="rounded-md border border-emerald-400 dark:outline-emerald-500 px-5 py-3 text-sm font-medium text-white dark:text-emerald-500 shadow-xl bg-emerald-400 dark:bg-emerald-800/20 hover:bg-emerald-500 dark:hover:bg-emerald-800/60 focus:outline-none focus:ring-1 focus:outline-emerald-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed inline-flex justify-center">
+                <Link
+                    href="/star"
+                    className="text-center rounded-md outline outline-emerald-400 dark:outline-emerald-500 uppercase px-5 py-3 text-lg font-medium text-white dark:text-emerald-500 shadow-xl bg-emerald-400 dark:bg-emerald-800/20 hover:bg-emerald-500 dark:hover:bg-emerald-800/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 sm:px-10 hover:text-white"
+                >
                   Get started yourself and star them all!
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -77,8 +82,6 @@ const Session = ({ packages }: Props) => {
                   </span>
                 ))}
               </div>
-
-              <div className="pointer-events-none sticky bottom-0 h-20 md:h-40 bg-gradient-to-t from-white dark:from-zinc-900 rounded-b-lg" />
             </div>
           </div>
         </fieldset>
@@ -91,8 +94,8 @@ export default Session
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const { data } = await client.query<{ packages: Package[] }>({
-      query: PACKAGES_QUERY,
+    const { data } = await client.query<{ session: Session }>({
+      query: SESSION_QUERY,
       variables: {
         session: context.params?.session,
       },
@@ -100,8 +103,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
       props: {
-        packages: data.packages,
-        session: context.query?.session,
+        packages: data.session.packages,
+        session: data.session.id,
+        username: data.session.stargazer?.username
       },
     }
   } catch (e) {

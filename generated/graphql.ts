@@ -119,11 +119,24 @@ export type PaginatorInfo = {
 export type Query = {
   __typename?: 'Query';
   packages?: Maybe<Array<Package>>;
+  session?: Maybe<Session>;
 };
 
 
 export type QueryPackagesArgs = {
   session?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QuerySessionArgs = {
+  session: Scalars['ID'];
+};
+
+export type Session = {
+  __typename?: 'Session';
+  id: Scalars['ID'];
+  packages?: Maybe<Array<Package>>;
+  stargazer?: Maybe<Stargazer>;
 };
 
 /** Information about pagination using a simple paginator. */
@@ -150,6 +163,11 @@ export enum SortOrder {
   /** Sort records in descending order. */
   Desc = 'DESC'
 }
+
+export type Stargazer = {
+  __typename?: 'Stargazer';
+  username: Scalars['String'];
+};
 
 export enum Status {
   Done = 'DONE',
