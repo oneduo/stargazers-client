@@ -37,25 +37,31 @@ export default function Home({ statistics, logos }: Props) {
 }
 
 export async function getServerSideProps() {
-  const directoryPath = join(process.cwd(), "public/assets/logo")
-  const logos = await readdir(directoryPath)
-
-  let statistics: Statistics | null = null
-
-  try {
-    const { data } = await client.query<{ statistics: Statistics }>({
-      query: STATS_QUERY,
-    })
-
-    statistics = data.statistics
-  } catch (e) {
-    captureException(e)
-  }
+  // let logos: string[] = []
+  // let statistics: Statistics | null = null
+  //
+  // try {
+  //   const directoryPath = join(process.cwd(), "public/assets/logo")
+  //
+  //   logos = await readdir(directoryPath)
+  // } catch (e) {
+  //   captureException(e)
+  // }
+  //
+  // try {
+  //   const { data } = await client.query<{ statistics: Statistics }>({
+  //     query: STATS_QUERY,
+  //   })
+  //
+  //   statistics = data.statistics
+  // } catch (e) {
+  //   captureException(e)
+  // }
 
   return {
     props: {
-      logos,
-      statistics,
+      logos: [],
+      statistics: null,
     },
   }
 }
