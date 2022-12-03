@@ -22,11 +22,11 @@ export default function Home({ statistics, logos }: Props) {
     <>
       <Hero logos={logos} />
       <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6 lg:px-8 flex flex-col gap-12">
-        <Stats
-          projects={statistics?.projectsCount ?? 0}
-          stars={statistics?.starsCount ?? 0}
-          users={statistics?.usersCount ?? 0}
-        />
+        {/*<Stats*/}
+        {/*  projects={statistics?.projectsCount ?? 0}*/}
+        {/*  stars={statistics?.starsCount ?? 0}*/}
+        {/*  users={statistics?.usersCount ?? 0}*/}
+        {/*/>*/}
         <Faq />
         <Team />
         <Sponsors />
@@ -61,7 +61,7 @@ export async function getServerSideProps() {
   return {
     props: {
       logos: [],
-      statistics: null,
+      // statistics: null,
     },
   }
 }
