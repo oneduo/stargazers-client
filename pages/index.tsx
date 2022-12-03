@@ -13,14 +13,14 @@ import client from "@/utils/apollo"
 import STATS_QUERY from "@/graphql/statistics"
 
 interface Props {
-  logos: string[]
+  logos?: string[]
   statistics?: Statistics
 }
 
 export default function Home({ statistics, logos }: Props) {
   return (
     <>
-      <Hero logos={logos} />
+      {/*<Hero logos={logos} />*/}
       <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6 lg:px-8 flex flex-col gap-12">
         {/*<Stats*/}
         {/*  projects={statistics?.projectsCount ?? 0}*/}
@@ -35,33 +35,38 @@ export default function Home({ statistics, logos }: Props) {
     </>
   )
 }
-
-export async function getServerSideProps() {
-  // let logos: string[] = []
-  // let statistics: Statistics | null = null
-  //
-  // try {
-  //   const directoryPath = join(process.cwd(), "public/assets/logo")
-  //
-  //   logos = await readdir(directoryPath)
-  // } catch (e) {
-  //   captureException(e)
-  // }
-  //
-  // try {
-  //   const { data } = await client.query<{ statistics: Statistics }>({
-  //     query: STATS_QUERY,
-  //   })
-  //
-  //   statistics = data.statistics
-  // } catch (e) {
-  //   captureException(e)
-  // }
-
-  return {
-    props: {
-      logos: [],
-      // statistics: null,
-    },
-  }
-}
+//
+// export async function getServerSideProps() {
+//   let logos: string[] = []
+//
+//   let statistics: Statistics = {
+//     usersCount: 0,
+//     starsCount: 0,
+//     projectsCount: 0,
+//   }
+//
+//   try {
+//     const directoryPath = join(process.cwd(), "public/assets/logo")
+//
+//     logos = await readdir(directoryPath)
+//   } catch (e) {
+//     captureException(e)
+//   }
+//
+//   try {
+//     const { data } = await client.query<{ statistics: Statistics }>({
+//       query: STATS_QUERY,
+//     })
+//
+//     statistics = data.statistics
+//   } catch (e) {
+//     captureException(e)
+//   }
+//
+//   return {
+//     props: {
+//       logos,
+//       statistics,
+//     },
+//   }
+// }
