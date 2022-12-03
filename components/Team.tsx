@@ -1,3 +1,6 @@
+import Link from "next/link"
+import Image from "next/image"
+
 const people = [
   {
     name: "Mikaël Popowicz",
@@ -25,7 +28,7 @@ export default function Team() {
             key={person.name}
             className="rounded-lg border border-zinc-200 dark:border-zinc-800 py-5 px-6 inline-flex items-center w-full gap-4"
           >
-            <img className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
+            <Image height={460} width={460} className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
             <div className="inline-flex items-center justify-between w-full">
               <div className="text-lg font-medium leading-6">
                 <h3 className="text-zinc-700 dark:text-zinc-300 text-xs">{person.name}</h3>
@@ -44,7 +47,7 @@ export default function Team() {
                   </svg>
                 </a>
 
-                <a
+                <Link
                   href={person.github}
                   target="_blank"
                   className="text-zinc-400 dark:text-zinc-600 hover:text-black dark:hover:text-white"
@@ -58,7 +61,7 @@ export default function Team() {
                       clipRule="evenodd"
                     />
                   </svg>
-                </a>
+                </Link>
               </div>
             </div>
           </li>
