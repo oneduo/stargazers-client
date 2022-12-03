@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import clsx from "clsx"
 import { useInView } from "framer-motion"
+import Image from "next/image"
 
 interface Project {
   name: string
@@ -22,7 +23,7 @@ function Card({ name, className, ...props }: Project & React.HTMLProps<HTMLDivEl
       style={{ animationDelay }}
       {...props}
     >
-      <img
+      <Image
         src={`/assets/logo/${name}`}
         className="text-white fill-white opacity-70 group-hover:opacity-100 transition-opacity duration-300"
         alt={name}

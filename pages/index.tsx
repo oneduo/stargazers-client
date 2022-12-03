@@ -1,6 +1,4 @@
 import React from "react"
-import { readdir } from "fs-extra"
-import { join } from "path"
 import Faq from "@/components/Faq"
 import Footer from "@/components/Footer"
 import Team from "@/components/Team"
@@ -13,20 +11,20 @@ import client from "@/utils/apollo"
 import STATS_QUERY from "@/graphql/statistics"
 
 interface Props {
-  logos?: string[]
+  logos: string[]
   statistics?: Statistics
 }
 
 export default function Home({ statistics, logos }: Props) {
   return (
     <>
-      {/*<Hero logos={logos} />*/}
+      <Hero logos={logos} />
       <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6 lg:px-8 flex flex-col gap-12">
-        {/*<Stats*/}
-        {/*  projects={statistics?.projectsCount ?? 0}*/}
-        {/*  stars={statistics?.starsCount ?? 0}*/}
-        {/*  users={statistics?.usersCount ?? 0}*/}
-        {/*/>*/}
+        <Stats
+          projects={statistics?.projectsCount ?? 0}
+          stars={statistics?.starsCount ?? 0}
+          users={statistics?.usersCount ?? 0}
+        />
         <Faq />
         <Team />
         <Sponsors />
@@ -35,38 +33,50 @@ export default function Home({ statistics, logos }: Props) {
     </>
   )
 }
-//
-// export async function getServerSideProps() {
-//   let logos: string[] = []
-//
-//   let statistics: Statistics = {
-//     usersCount: 0,
-//     starsCount: 0,
-//     projectsCount: 0,
-//   }
-//
-//   try {
-//     const directoryPath = join(process.cwd(), "public/assets/logo")
-//
-//     logos = await readdir(directoryPath)
-//   } catch (e) {
-//     captureException(e)
-//   }
-//
-//   try {
-//     const { data } = await client.query<{ statistics: Statistics }>({
-//       query: STATS_QUERY,
-//     })
-//
-//     statistics = data.statistics
-//   } catch (e) {
-//     captureException(e)
-//   }
-//
-//   return {
-//     props: {
-//       logos,
-//       statistics,
-//     },
-//   }
-// }
+
+export async function getServerSideProps() {
+  let logos: string[] = [
+    "Beyondcode.svg",
+    "Jest.svg",
+    "Laravel.svg",
+    "Next.svg",
+    "Nuxt.svg",
+    "Pest.svg",
+    "PHP.svg",
+    "PHPUnit.svg",
+    "Preact.svg",
+    "React.svg",
+    "Slim.svg",
+    "Spatie.svg",
+    "Statamic.svg",
+    "Symfony.svg",
+    "Tailwindcss.svg",
+    "Tighten.svg",
+    "Vite.svg",
+    "Vue.svg",
+    "Wordpress.svg",
+  ]
+
+  let statistics: Statistics = {
+    usersCount: 0,
+    starsCount: 0,
+    projectsCount: 0,
+  }
+
+  try {
+    const { data } = await client.query<{ statistics: Statistics }>({
+      query: STATS_QUERY,
+    })
+
+    statistics = data.statistics
+  } catch (e) {
+    captureException(e)
+  }
+
+  return {
+    props: {
+      logos,
+      statistics,
+    },
+  }
+}
