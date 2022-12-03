@@ -112,7 +112,7 @@ export default function LogoGrid({ logos }: { logos: string[] }) {
       ref={containerRef}
       className="relative -mx-4 mt-16 grid h-[20rem] md:h-[49rem] max-h-[150vh] grid-cols-3 items-start gap-8 overflow-hidden px-4 sm:mt-20 lg:grid-cols-4"
     >
-      {isInView && (
+      {logos.length && isInView && (
         <>
           <Column projects={[...columns[0], ...columns[2].flat(), ...columns[1]]} msPerPixel={10} />
           <Column projects={[...columns[1], ...columns[2][1]]} msPerPixel={15} />

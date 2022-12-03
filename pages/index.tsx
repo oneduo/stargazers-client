@@ -7,9 +7,7 @@ import Team from "@/components/Team"
 import Stats from "@/components/Stats"
 import Hero from "@/components/Hero"
 import Sponsors from "@/components/Sponsors"
-import client from "@/utils/apollo"
 import { Statistics } from "@/generated/graphql"
-import STATS_QUERY from "@/graphql/statistics"
 import { captureException } from "@sentry/core"
 
 interface Props {
@@ -37,8 +35,12 @@ export default function Home({ statistics, logos }: Props) {
 }
 
 export async function getServerSideProps() {
-  const directoryPath = join(process.cwd(), "public/assets/logo")
-  const logos = await readdir(directoryPath)
+  try {
+    const directoryPath = join(process.cwd(), "public/assets/logo")
+    const logos = await readdir(directoryPath)
+  } catch (e) {
+    captureException(e)
+  }
 
   let statistics: Statistics | undefined = undefined
   //
@@ -54,7 +56,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      logos,
+      logos: [],
       statistics,
     },
   }
