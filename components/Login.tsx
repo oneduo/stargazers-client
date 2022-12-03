@@ -10,7 +10,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex justify-center items-center rounded-md bg-zinc-800/60 backdrop-blur-md shadow-xl border-2 border border-zinc-800 px-6 pt-5 pb-6 w-full min-h-[40vh]">
+    <div className="flex justify-center items-center rounded-md bg-zinc-100 dark:bg-zinc-800/60 backdrop-blur-md shadow-xl border border-zinc-200 dark:border-zinc-800 px-6 pt-5 pb-6 w-full min-h-[40vh]">
       <Link
         href={url}
         className="inline-flex items-center rounded-md border border-zinc-800 bg-black hover:bg-zinc-900 px-6 py-3 text-base font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 shadow-xl"

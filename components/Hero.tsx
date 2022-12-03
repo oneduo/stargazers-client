@@ -34,18 +34,18 @@ export default function Hero({ logos }: Props) {
                 </a>
               </div>
               <div className="sm:max-w-xl">
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-zinc-100 sm:text-5xl">
+                <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-5xl">
                   Show appreciation for the open source artisans
                 </h1>
-                <p className="mt-6 text-md text-gray-500 dark:text-zinc-400">
+                <p className="mt-6 text-md text-zinc-500 dark:text-zinc-400">
                   We owe a lot of our success to the open source community. With this little app, you can show your
                   appreciation by giving a little back.
                 </p>
-                <p className="mt-6 text-md text-gray-500 dark:text-zinc-400">
+                <p className="mt-6 text-md text-zinc-500 dark:text-zinc-400">
                   This app enables you to give <span className="text-yellow-500">stars</span> to your favorite open
                   source projects on GitHub.
                 </p>
-                <p className="mt-6 text-md text-gray-500 dark:text-zinc-400">
+                <p className="mt-6 text-md text-zinc-500 dark:text-zinc-400">
                   If you are able, please consider
                   <span className="text-pink-500"> sponsoring </span>these creators and their projects.
                 </p>
@@ -56,7 +56,7 @@ export default function Hero({ logos }: Props) {
                   <div className="flex flex-shrink-0">
                     <StarIcon className="h-4 w-4 text-yellow-500" aria-hidden="true" />
                   </div>
-                  <div className="min-w-0 flex-1 py-1 text-sm text-gray-500 dark:text-gray-400 sm:py-3 space-x-1">
+                  <div className="min-w-0 flex-1 py-1 text-sm text-zinc-500 dark:text-zinc-400 sm:py-3 space-x-1">
                     <span>Over</span>
                     <span className="text-yellow-500 font-medium">900+ stars</span>
                     <span>given to open source projects already!</span>

@@ -56,14 +56,14 @@ export default function Upload() {
                 >
                   <span>Upload a file</span>
                 </label>
-                <p className="pl-1">or drag and drop a file here</p>
+                <p className="pl-1 text-zinc-500">or drag and drop a file here</p>
               </div>
               <div className="inline-flex gap-2 text-xs text-zinc-400 items-center justify-center">
-                <code className="bg-zinc-900 py-1 px-2 rounded-lg">composer.lock</code>
+                <code className="bg-zinc-200 dark:bg-zinc-900 py-1 px-2 rounded-lg">composer.lock</code>
                 {/*<span>or</span>*/}
                 {/*<code className="bg-zinc-900 py-1 px-2 rounded-lg">package-lock.json</code>*/}
               </div>
-              <p className="text-xs text-zinc-700">json file only, up to 10MB</p>
+              <p className="text-xs text-zinc-400 dark:text-zinc-700">json file only, up to 10MB</p>
             </div>
           )}
         </div>

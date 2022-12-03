@@ -10,7 +10,7 @@ export default function Sponsors() {
         {Array.from(Array(1)).map(() => (
           <div
             key={id}
-            className="col-span-1 flex justify-center bg-gray-50/20 dark:bg-zinc-800 py-8 px-8 rounded-lg md:col-start-2"
+            className="col-span-1 flex justify-center bg-gray-50 dark:bg-zinc-800 py-8 px-8 rounded-lg md:col-start-2"
           >
             <a href="mailto:hi@stargazers.app" className="text-zinc-600 uppercase text-xs">
               You ? Contact us today!

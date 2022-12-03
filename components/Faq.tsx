@@ -16,18 +16,14 @@ const faqs = [
 export default function Faq() {
   return (
     <div>
-      <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-zinc-100">
-        Frequently asked questions
-      </h2>
+      <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Frequently asked questions</h2>
       <div className="mt-8">
         <dl className="divide-y divide-zinc-200 dark:divide-zinc-800">
           {faqs.map((faq) => (
             <div key={faq.id} className="pt-6 pb-8 flex flex-col md:gap-8">
-              <dt className="text-base font-medium text-gray-900 dark:text-zinc-300">
-                {faq.question}
-              </dt>
+              <dt className="text-base font-medium text-zinc-900 dark:text-zinc-300">{faq.question}</dt>
               <dd className="mt-2 md:mt-0">
-                <p className="text-base text-gray-500">{faq.answer}</p>
+                <p className="text-base text-zinc-500">{faq.answer}</p>
               </dd>
             </div>
           ))}

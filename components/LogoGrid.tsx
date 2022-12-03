@@ -6,30 +6,17 @@ interface Project {
   name: string
 }
 
-function Card({
-  name,
-  className,
-  ...props
-}: Project & React.HTMLProps<HTMLDivElement>) {
+function Card({ name, className, ...props }: Project & React.HTMLProps<HTMLDivElement>) {
   const animationDelay = useMemo(() => {
-    const possibleAnimationDelays = [
-      "0s",
-      "0.1s",
-      "0.2s",
-      "0.3s",
-      "0.4s",
-      "0.5s",
-    ]
+    const possibleAnimationDelays = ["0s", "0.1s", "0.2s", "0.3s", "0.4s", "0.5s"]
 
-    return possibleAnimationDelays[
-      Math.floor(Math.random() * possibleAnimationDelays.length)
-    ]
+    return possibleAnimationDelays[Math.floor(Math.random() * possibleAnimationDelays.length)]
   }, [])
 
   return (
     <div
       className={clsx(
-        "group animate-fade-in rounded-3xl bg-white dark:bg-zinc-800 backdrop-blur-3xl p-4 md:p-8 aspect-square flex items-center justify-center opacity-0 shadow-sm shadow-gray-900/20",
+        "group animate-fade-in rounded-3xl bg-white dark:bg-zinc-800 backdrop-blur-3xl p-4 md:p-8 aspect-square flex items-center justify-center opacity-0 shadow-sm shadow-zinc-900/20",
         className,
       )}
       style={{ animationDelay }}
@@ -127,14 +114,8 @@ export default function LogoGrid({ logos }: { logos: string[] }) {
     >
       {isInView && (
         <>
-          <Column
-            projects={[...columns[0], ...columns[2].flat(), ...columns[1]]}
-            msPerPixel={10}
-          />
-          <Column
-            projects={[...columns[1], ...columns[2][1]]}
-            msPerPixel={15}
-          />
+          <Column projects={[...columns[0], ...columns[2].flat(), ...columns[1]]} msPerPixel={10} />
+          <Column projects={[...columns[1], ...columns[2][1]]} msPerPixel={15} />
           <Column projects={columns[2].flat()} msPerPixel={10} />
         </>
       )}
