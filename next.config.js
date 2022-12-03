@@ -9,6 +9,10 @@ const nextConfig = {
     hideSourceMaps: true,
     excludeServerRoutes: ["/api/og", "/og"],
   },
+
+  images: {
+    domains: ["avatars.githubusercontent.com"],
+  },
 }
 
 const sentryWebpackPluginOptions = {

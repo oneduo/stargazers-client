@@ -9,6 +9,8 @@ import Hero from "@/components/Hero"
 import Sponsors from "@/components/Sponsors"
 import { Statistics } from "@/generated/graphql"
 import { captureException } from "@sentry/core"
+import client from "@/utils/apollo"
+import STATS_QUERY from "@/graphql/statistics"
 
 interface Props {
   logos: string[]
@@ -35,28 +37,24 @@ export default function Home({ statistics, logos }: Props) {
 }
 
 export async function getServerSideProps() {
+  const directoryPath = join(process.cwd(), "public/assets/logo")
+  const logos = await readdir(directoryPath)
+
+  let statistics: Statistics | null = null
+
   try {
-    const directoryPath = join(process.cwd(), "public/assets/logo")
-    const logos = await readdir(directoryPath)
+    const { data } = await client.query<{ statistics: Statistics }>({
+      query: STATS_QUERY,
+    })
+
+    statistics = data.statistics
   } catch (e) {
     captureException(e)
   }
 
-  let statistics: Statistics | undefined = undefined
-  //
-  // try {
-  //   const { data } = await client.query<{ statistics: Statistics }>({
-  //     query: STATS_QUERY,
-  //   })
-  //
-  //   statistics = data.statistics
-  // } catch (e) {
-  //   captureException(e)
-  // }
-
   return {
     props: {
-      logos: [],
+      logos,
       statistics,
     },
   }
