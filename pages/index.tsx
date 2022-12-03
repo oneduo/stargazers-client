@@ -41,16 +41,16 @@ export async function getServerSideProps() {
   const logos = await readdir(directoryPath)
 
   let statistics: Statistics | undefined = undefined
-
-  try {
-    const { data } = await client.query<{ statistics: Statistics }>({
-      query: STATS_QUERY,
-    })
-
-    statistics = data.statistics
-  } catch (e) {
-    captureException(e)
-  }
+  //
+  // try {
+  //   const { data } = await client.query<{ statistics: Statistics }>({
+  //     query: STATS_QUERY,
+  //   })
+  //
+  //   statistics = data.statistics
+  // } catch (e) {
+  //   captureException(e)
+  // }
 
   return {
     props: {
