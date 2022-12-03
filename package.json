@@ -15,6 +15,7 @@
     "@apollo/client": "^3.7.1",
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",
+    "@sentry/nextjs": "^7.23.0",
     "@tailwindcss/forms": "^0.5.3",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
