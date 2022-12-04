@@ -72,8 +72,8 @@ export default function Selection() {
   }, [data, nextStep, setLoginUrl])
 
   return (
-    <div className="rounded-md bg-zinc-100 dark:bg-zinc-800/60 backdrop-blur-md shadow-xl border border-zinc-200 dark:border-zinc-800 px-6 pt-5 pb-6 w-full min-h-[40vh] flex flex-col gap-6">
-      <fieldset>
+    <div className="rounded-md bg-zinc-100 dark:bg-zinc-800/60 backdrop-blur-md shadow-xl border border-zinc-200 dark:border-zinc-800 px-6 pt-5 pb-6 w-full min-h-[40vh] flex flex-col gap-6 w-full">
+      <div className="w-full">
         <legend className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
           We found
           <span className="font-semibold text-emerald-500"> {packages.length ?? 0} </span>
@@ -114,7 +114,7 @@ export default function Selection() {
                   >
                     {item.name}
                   </label>
-                  <span className="text-zinc-500 text-xs">{item.url}</span>
+                  <span className="text-zinc-500 text-xs truncate">{item.url}</span>
                 </div>
                 <div className="ml-3 flex h-5 items-center">
                   <input
@@ -146,7 +146,7 @@ export default function Selection() {
                 >
                   {stargazersPackage.name}
                 </label>
-                <span className="text-zinc-500 text-xs">{stargazersPackage.url}</span>
+                <span className="text-zinc-500 text-xs truncate">{stargazersPackage.url}</span>
               </div>
               <div className="ml-3 flex h-5 items-center">
                 <input
@@ -159,7 +159,7 @@ export default function Selection() {
             </div>
           </span>
         </div>
-      </fieldset>
+      </div>
 
       <Button label="Continue" onClick={submit} disabled={selection.length === 0} loading={loading} />
 

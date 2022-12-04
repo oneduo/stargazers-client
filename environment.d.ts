@@ -7,6 +7,7 @@ declare global {
       NEXT_PUBLIC_APP_URL: string
       API: string
       EDGE_TOKEN: string
+      MAINTENANCE_MODE: boolean
     }
   }
 }

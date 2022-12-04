@@ -16,7 +16,7 @@ export default function AppLayout({ withoutSidebar, children }: Props) {
       <div className="overflow-hidden relative">
         <HeroIllustration />
         <div className="overflow-hidden pt-8 sm:py-12 lg:py-24 max-w-4xl mx-auto">
-          <div className="w-full px-4 grid grid-cols-12">
+          <div className="w-full px-4 grid grid-cols-1 gap-8 md:gap-0 md:grid-cols-12">
             {!withoutSidebar && (
               <div className="col-span-3">
                 <div className="w-36 text-black dark:text-white">

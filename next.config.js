@@ -10,6 +10,12 @@ const nextConfig = {
     excludeServerRoutes: ["/api/og", "/og"],
   },
 
+  async redirects() {
+    return [
+      process.env.MAINTENANCE_MODE === "1" ? { source: "/", destination: "/maintenance", permanent: false } : null,
+    ].filter(Boolean)
+  },
+
   images: {
     domains: [
       "avatars.githubusercontent.com",

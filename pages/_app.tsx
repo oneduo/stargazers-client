@@ -28,6 +28,10 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router.events])
 
+  if (router.asPath === "/maintenance") {
+    return <Component {...pageProps} />
+  }
+
   return (
     <>
       <Head>
