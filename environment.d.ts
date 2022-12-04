@@ -5,6 +5,8 @@ declare global {
       NEXT_PUBLIC_PUSHER_API_KEY: string
       NEXT_PUBLIC_PUSHER_CLUSTER: string
       NEXT_PUBLIC_APP_URL: string
+      API: string
+      EDGE_TOKEN: string
     }
   }
 }

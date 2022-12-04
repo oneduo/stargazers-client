@@ -6,6 +6,7 @@ const UPLOAD_MUTATION = gql`
       id
       name
       url
+      image
       pivot {
         starred_at
       }

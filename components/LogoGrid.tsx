@@ -24,7 +24,7 @@ function Card({ name, className, ...props }: Project & React.HTMLProps<HTMLDivEl
       {...props}
     >
       <img
-        src={`/assets/logo/${name}`}
+        src={`/logo/${name}`}
         className="text-white fill-white opacity-70 group-hover:opacity-100 transition-opacity duration-300"
         alt={name}
       />

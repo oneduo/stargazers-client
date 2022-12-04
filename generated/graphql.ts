@@ -63,7 +63,7 @@ export enum OrderByRelationWithColumnAggregateFunction {
 export type Package = {
   __typename?: 'Package';
   id: Scalars['ID'];
-  image: Scalars['String'];
+  image?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   pivot?: Maybe<PackageSession>;
   url: Scalars['String'];

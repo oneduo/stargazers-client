@@ -1,13 +1,13 @@
 import { ImageResponse } from "@vercel/og"
 import { NextRequest } from "next/server"
-import client from "@/utils/apollo"
-import { Package, Stargazer } from "@/generated/graphql"
-import SESSION_QUERY from "@/graphql/session"
 import { captureException } from "@sentry/core"
+import type { Session } from "@/generated/graphql"
 
 export const config = {
   runtime: "experimental-edge",
 }
+
+const font = fetch(new URL("../../assets/inter.ttf", import.meta.url)).then((res) => res.arrayBuffer())
 
 const getSession = async (session: string | null) => {
   if (!session) {
@@ -15,12 +15,13 @@ const getSession = async (session: string | null) => {
   }
 
   try {
-    const { data } = await client.query<{ session: { stargazer?: Stargazer; packages: Package[] } }>({
-      query: SESSION_QUERY,
-      variables: {
-        session: session,
+    const response = await fetch(`${process.env.API}/session/${session}`, {
+      headers: {
+        "x-vercel-edge": process.env.EDGE_TOKEN,
       },
     })
+
+    const data: Session = await response.json()
 
     return data
   } catch (e) {
@@ -31,6 +32,8 @@ const getSession = async (session: string | null) => {
 }
 
 export default async function og(req: NextRequest) {
+  const fontData = await font
+
   try {
     const { searchParams } = new URL(req.url)
 
@@ -55,17 +58,28 @@ export default async function og(req: NextRequest) {
             backgroundImage: `url("${process.env.NEXT_PUBLIC_APP_URL}/og.png")`,
             backgroundSize: "1200px 630px",
             backgroundRepeat: "no-repeat",
+            fontFamily: '"Inter"',
           }}
         >
           <div tw="text-white flex flex-row text-4xl pl-[103px] pt-[299px]">
-            I have just starred <span tw="ml-1 text-yellow-400 font-black">{data.session.packages?.length}</span>
-            <span tw="mx-1 font-bold">projects</span> on Github !
+            I have just starred{" "}
+            <span tw="ml-1 text-yellow-400 font-black" style={{ fontWeight: "bold" }}>
+              {data.packages?.length}
+            </span>
+            <span tw="ml-1 mr-2 font-bold">projects</span> on Github !
           </div>
         </div>
       ),
       {
         width: 1200,
-        height: 600,
+        height: 630,
+        fonts: [
+          {
+            name: "Inter",
+            data: fontData,
+            style: "normal",
+          },
+        ],
       },
     )
   } catch (e) {
