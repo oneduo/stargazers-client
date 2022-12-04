@@ -27,6 +27,7 @@
     "dayjs": "^1.11.6",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
+    "fathom-client": "^3.5.0",
     "framer-motion": "^7.6.15",
     "fs-extra": "^11.1.0",
     "graphql": "^16.6.0",
