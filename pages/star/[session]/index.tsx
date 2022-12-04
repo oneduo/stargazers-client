@@ -107,6 +107,8 @@ const Session = ({ session, packages: ssrPackages, alreadyProcessed }: Props) =>
         setIsCopied(false)
       }, 1500)
     })
+
+    window.fathom?.trackGoal("KAVLYTD4", 0)
   }
 
   return (

@@ -19,6 +19,8 @@ export default function Upload() {
       } catch (e) {
         captureException(e)
       }
+
+      window.fathom?.trackGoal("GNHE0BMC", 0)
     },
     [mutate],
   )

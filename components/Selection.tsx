@@ -57,6 +57,8 @@ export default function Selection() {
 
     try {
       await mutate({ variables: { packages: selection.map((s) => s.id) } })
+
+      window.fathom?.trackGoal("1BEIS30X", 0)
     } catch (e) {
       captureException(e)
     }
