@@ -175,6 +175,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       variables: {
         session: context.params?.session,
       },
+      fetchPolicy: 'network-only',
     })
 
     return {
