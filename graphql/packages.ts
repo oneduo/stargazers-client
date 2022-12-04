@@ -6,6 +6,7 @@ const PACKAGES_QUERY = gql`
       id
       name
       url
+      image
       pivot {
         starred_at
         status

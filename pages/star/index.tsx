@@ -10,5 +10,6 @@ export default function Index() {
     reset()
   }, [reset])
 
+
   return <AppLayout>{step.component && <step.component />}</AppLayout>
 }
