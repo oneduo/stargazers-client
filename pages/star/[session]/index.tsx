@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Channel } from "pusher-js"
-import { Package, Status } from "@/generated/graphql"
+import { Package, Stargazer, Status } from "@/generated/graphql"
 import Spinner from "@/components/Spinner"
 import {
   ClipboardDocumentCheckIcon,
@@ -11,17 +11,19 @@ import {
 import pusher from "@/utils/pusher"
 import AppLayout from "@/layouts/AppLayout"
 import useStore from "@/utils/store"
-import PACKAGES_QUERY from "@/graphql/packages"
 import { GetServerSideProps } from "next"
 import client from "@/utils/apollo"
 import { captureException } from "@sentry/core"
 import ProjectLogo from "@/components/ProjectLogo"
 import { NextSeo } from "next-seo"
 import { useRouter } from "next/router"
+import Image from "next/image"
+import SESSION_QUERY from "@/graphql/session"
 
 interface Props {
   packages: Package[]
   session?: string
+  stargazer: Stargazer
 }
 
 const EVENT_NAME = "star.processed"
@@ -103,22 +105,33 @@ const Session = ({ session, packages: ssrPackages }: Props) => {
       />
       <AppLayout>
         {packages && finished && (
-          <div className="mb-8 rounded-md bg-zinc-100 dark:bg-zinc-800/60 backdrop-blur-md shadow-xl border border-zinc-200 dark:border-zinc-800 px-6 pt-5 pb-6 w-full flex flex-col gap-6">
+          <div className="mb-8 rounded-md bg-zinc-100 dark:bg-zinc-500/10 backdrop-blur-3xl shadow-xl border border-zinc-200 dark:border-zinc-800 px-6 pt-5 pb-6 w-full flex flex-col gap-6">
             <h1 className="text-emerald-500 text-2xl font-bold">Congratulations!</h1>
-            <h2 className="text-zinc-400 text-md">
+            <h2 className="text-zinc-600 dark:text-zinc-400 text-md">
               You have successfully starred <span className="text-yellow-500 font-bold">{packages.length}</span>{" "}
               packages on GitHub. <br />
               <span className="text-sm">
                 You may use this link to share your favorite packages and let others star them too.
               </span>
             </h2>
-            <div
-              className="w-full inline-flex justify-center items-center bg-zinc-200/50 dark:bg-zinc-600/10 gap-2 text-zinc-400 dark:text-zinc-400 dark:text-zinc-300 rounded-lg py-4 px-2 hover:text-emerald-500 cursor-pointer"
-              onClick={handleCopyClick}
-            >
-              <code>{share}</code>
-              {!isCopied && <ClipboardDocumentIcon className="w-4 h-4" />}
-              {isCopied && <ClipboardDocumentCheckIcon className="w-4 h-4" />}
+
+            <div>
+              <Image
+                src={`${process.env.NEXT_PUBLIC_APP_URL}/api/og?session=${session}`}
+                alt="Preview"
+                width={1200}
+                height={630}
+                className="rounded-t-lg"
+              />
+
+              <div
+                className="w-full inline-flex justify-center items-center bg-zinc-200/50 dark:bg-zinc-700/50 gap-2 text-zinc-600 dark:text-zinc-400 dark:text-zinc-300 rounded-b-lg py-4 px-2 hover:text-emerald-500 cursor-pointer text-sm"
+                onClick={handleCopyClick}
+              >
+                <code>{share}</code>
+                {!isCopied && <ClipboardDocumentIcon className="w-4 h-4" />}
+                {isCopied && <ClipboardDocumentCheckIcon className="w-4 h-4" />}
+              </div>
             </div>
           </div>
         )}
@@ -183,8 +196,8 @@ export default Session
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const { data } = await client.query<{ packages: Package[] }>({
-      query: PACKAGES_QUERY,
+    const { data } = await client.query<{ session: { packages: Package[]; stargazer: Stargazer } }>({
+      query: SESSION_QUERY,
       variables: {
         session: context.params?.session,
       },
@@ -192,12 +205,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
       props: {
-        packages: data.packages,
+        packages: data.session.packages,
+        stargazer: data.session.stargazer,
         session: context.query?.session,
       },
     }
   } catch (e) {
-    console.log(e)
     captureException(e)
 
     return {

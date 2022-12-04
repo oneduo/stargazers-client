@@ -62,7 +62,7 @@ export default async function og(req: NextRequest) {
           }}
         >
           <div tw="text-white flex flex-row text-4xl pl-[103px] pt-[299px]">
-            I have just starred{" "}
+            {data.stargazer?.username} has just starred{" "}
             <span tw="ml-1 text-yellow-400 font-black" style={{ fontWeight: "bold" }}>
               {data.packages?.length}
             </span>
