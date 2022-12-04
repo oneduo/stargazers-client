@@ -63,8 +63,8 @@ export default function Upload() {
               </div>
               <div className="inline-flex gap-2 text-xs text-zinc-400 items-center justify-center">
                 <code className="bg-zinc-200 dark:bg-zinc-900 py-1 px-2 rounded-lg">composer.lock</code>
-                {/*<span>or</span>*/}
-                {/*<code className="bg-zinc-900 py-1 px-2 rounded-lg">package-lock.json</code>*/}
+                <span>or</span>
+                <code className="bg-zinc-900 py-1 px-2 rounded-lg">package-lock.json</code>
               </div>
               <p className="text-xs text-zinc-400 dark:text-zinc-700">json file only, up to 10MB</p>
             </div>
