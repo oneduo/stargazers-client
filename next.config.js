@@ -11,7 +11,14 @@ const nextConfig = {
   },
 
   images: {
-    domains: ["avatars.githubusercontent.com", "github.com", "stargazers.localhost", "localhost", "stargazers.app"],
+    domains: [
+      "avatars.githubusercontent.com",
+      "github.com",
+      "stargazers.localhost",
+      "localhost",
+      "stargazers.app",
+      "www.stargazers.app",
+    ],
   },
 }
 
