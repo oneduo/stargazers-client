@@ -7,9 +7,16 @@ import Button from "@/components/Button"
 import { captureException } from "@sentry/core"
 import ProjectLogo from "@/components/ProjectLogo"
 
+const stargazersPackage: Package = {
+  id: "1",
+  name: "oneduo/stargazers",
+  url: "https://github.com/oneduo/stargazers",
+  image: "https://github.com/oneduo.png",
+}
+
 export default function Selection() {
   const packages = useStore((state) => state.packages)
-  const [selection, setSelection] = useState<Package[]>(packages)
+  const [selection, setSelection] = useState<Package[]>([...packages, stargazersPackage])
   const setLoginUrl = useStore((state) => state.setLoginUrl)
   const nextStep = useStore((state) => state.nextStep)
 
@@ -90,7 +97,7 @@ export default function Selection() {
           <span className="text-emerald-500">({selection.length})</span>
         </div>
         <div className="border border-zinc-300 dark:border-zinc-700 rounded-lg">
-          <div className="max-h-[60vh] overflow-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-600/40 scrollbar-track-zinc-200 dark:scrollbar-track-zinc-700/50 scrollbar-corner-rounded divide divide-y divide-zinc-300 dark:divide-zinc-700 pr-2 scrollbar-thumb-rounded-lg scrollbar-track-rounded-lg">
+          <div className="max-h-[50vh] overflow-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-600/40 scrollbar-track-zinc-200 dark:scrollbar-track-zinc-700/50 scrollbar-corner-rounded divide divide-y divide-zinc-300 dark:divide-zinc-700 pr-2 scrollbar-thumb-rounded-lg scrollbar-track-rounded-lg">
             {packages.map((item) => (
               <span
                 key={item.id}
@@ -120,6 +127,35 @@ export default function Selection() {
               </span>
             ))}
           </div>
+
+          <span className="cursor-pointer w-full text-left relative flex flex-col gap-4 py-4 px-4 py-4 hover:bg-emerald-500/5 border-t border-zinc-300 dark:border-zinc-600">
+            <span className="text-xs text-emerald-500 font-medium">
+              Would you want to support us as well?
+              <br />
+              <span className="text-zinc-400">We would really appreciate it!</span>
+            </span>
+            <div className="flex gap-x-2 items-center">
+              <ProjectLogo src={stargazersPackage.image} alt={stargazersPackage.name} />
+
+              <div className="min-w-0 flex flex-col text-sm w-full gap-1">
+                <label
+                  htmlFor="oneduo"
+                  className="select-none font-medium text-zinc-700 dark:text-zinc-200 inline-flex items-center gap-2"
+                >
+                  {stargazersPackage.name}
+                </label>
+                <span className="text-zinc-500 text-xs">{stargazersPackage.url}</span>
+              </div>
+              <div className="ml-3 flex h-5 items-center">
+                <input
+                  type="checkbox"
+                  checked={isSelected(stargazersPackage)}
+                  onChange={() => toggleSelection(stargazersPackage)}
+                  className="h-6 w-6 rounded-full bg-zinc-200 dark:bg-zinc-600 border-zinc-300 dark:border-zinc-600 text-emerald-500 accent-yellow-500 focus:ring-0 focus:ring-offset-0 focus:outline-none cursor-pointer focus:outline-2 focus:outline-emerald-500"
+                />
+              </div>
+            </div>
+          </span>
         </div>
       </fieldset>
 

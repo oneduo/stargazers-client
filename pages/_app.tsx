@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ApolloProvider client={client}>
         <NextSeo
           title="Stargazers - Appreciation for the open source communities"
-          description="A small to give stars and thank the projects and open source communities we rely on every day"
+          description="A small app to give stars and thank the projects and open source communities we rely on every day"
         />
         <div className="bg-white dark:bg-zinc-900 relative">
           <Component {...pageProps} />

@@ -9,6 +9,8 @@ import { Statistics } from "@/generated/graphql"
 import { captureException } from "@sentry/core"
 import client from "@/utils/apollo"
 import STATS_QUERY from "@/graphql/statistics"
+import { NextSeo } from "next-seo"
+import { useRouter } from "next/router"
 
 interface Props {
   logos: string[]
@@ -16,8 +18,21 @@ interface Props {
 }
 
 export default function Home({ statistics, logos }: Props) {
+  const { asPath } = useRouter()
+
   return (
     <>
+      <NextSeo
+        canonical={`${process.env.NEXT_PUBLIC_APP_URL}${asPath}`}
+        openGraph={{
+          images: [
+            {
+              url: `${process.env.NEXT_PUBLIC_APP_URL}/default.png`,
+            },
+          ],
+          type: "website",
+        }}
+      />
       <Hero logos={logos} />
       <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6 lg:px-8 flex flex-col gap-12">
         <Stats
