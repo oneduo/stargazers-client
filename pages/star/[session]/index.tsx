@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { Channel } from "pusher-js"
-import { Package, Stargazer, Status } from "@/generated/graphql"
+import Pusher, { Channel } from "pusher-js"
+import { Package, Session, Stargazer, Status } from "@/generated/graphql"
 import Spinner from "@/components/Spinner"
 import {
   ClipboardDocumentCheckIcon,
@@ -8,7 +8,6 @@ import {
   ExclamationCircleIcon,
   StarIcon,
 } from "@heroicons/react/20/solid"
-import pusher from "@/utils/pusher"
 import AppLayout from "@/layouts/AppLayout"
 import useStore from "@/utils/store"
 import { GetServerSideProps } from "next"
@@ -24,11 +23,12 @@ interface Props {
   packages: Package[]
   session?: string
   stargazer: Stargazer
+  alreadyProcessed?: boolean
 }
 
 const EVENT_NAME = "star.processed"
 
-const Session = ({ session, packages: ssrPackages }: Props) => {
+const Session = ({ session, packages: ssrPackages, alreadyProcessed }: Props) => {
   const [channel, setChannel] = useState<Channel>()
   const setStep = useStore((state) => state.setStep)
   const steps = useStore((state) => state.steps)
@@ -38,26 +38,45 @@ const Session = ({ session, packages: ssrPackages }: Props) => {
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const { asPath } = useRouter()
   const finished = packages.filter((p) => p.pivot?.status !== Status.Pending).length === packages.length
+  const [pusher, setPusher] = useState<Pusher>()
 
   useEffect(() => {
     setPackages(ssrPackages)
   }, [setPackages, ssrPackages])
 
   useEffect(() => {
-    if (session) {
-      setChannel(pusher.subscribe(`session.${session}`))
+    if (!alreadyProcessed && pusher === undefined) {
+      setPusher(
+        new Pusher(process.env.NEXT_PUBLIC_PUSHER_API_KEY ?? "", {
+          cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER,
+        }),
+      )
     }
+  }, [alreadyProcessed, pusher])
 
-    return () => {
-      pusher.unsubscribe(`session.${session}`)
+  useEffect(() => {
+    if (session) {
+      setChannel(pusher?.subscribe(`session.${session}`))
+
+      return () => {
+        pusher?.unsubscribe(`session.${session}`)
+      }
     }
-  }, [session])
+  }, [pusher, session])
 
   useEffect(() => {
     channel?.unbind(EVENT_NAME)
 
     channel?.bind(EVENT_NAME, (data: { package: Package }) => {
       replacePackage(data.package)
+    })
+  }, [channel, replacePackage])
+
+  useEffect(() => {
+    channel?.unbind("session.finished")
+
+    channel?.bind("session.finished", () => {
+      pusher?.unsubscribe(`session.${session}`)
     })
   }, [channel, replacePackage])
 
@@ -196,7 +215,7 @@ export default Session
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const { data } = await client.query<{ session: { packages: Package[]; stargazer: Stargazer } }>({
+    const { data } = await client.query<{ session: Session }>({
       query: SESSION_QUERY,
       variables: {
         session: context.params?.session,
@@ -208,9 +227,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         packages: data.session.packages,
         stargazer: data.session.stargazer,
         session: context.query?.session,
+        alreadyProcessed: data.session.processed_at !== null,
       },
     }
   } catch (e) {
+    console.log(e)
     captureException(e)
 
     return {

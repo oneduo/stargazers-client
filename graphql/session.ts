@@ -4,6 +4,7 @@ const SESSION_QUERY = gql`
   query session($session: ID!) {
     session(session: $session) {
       id
+      processed_at
       stargazer {
         username
       }

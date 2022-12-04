@@ -75,6 +75,12 @@ export type PackageSession = {
   status: Status;
 };
 
+export enum PackageType {
+  Npm = 'NPM',
+  Other = 'OTHER',
+  Php = 'PHP'
+}
+
 /** Information about pagination using a Relay style cursor connection. */
 export type PageInfo = {
   __typename?: 'PageInfo';
@@ -138,6 +144,7 @@ export type Session = {
   __typename?: 'Session';
   id: Scalars['ID'];
   packages?: Maybe<Array<Package>>;
+  processed_at?: Maybe<Scalars['DateTime']>;
   stargazer?: Maybe<Stargazer>;
 };
 

@@ -1,7 +1,7 @@
 import { ImageResponse } from "@vercel/og"
 import { NextRequest } from "next/server"
 import { captureException } from "@sentry/core"
-import type { Session } from "@/generated/graphql"
+import type { Stargazer } from "@/generated/graphql"
 
 export const config = {
   runtime: "experimental-edge",
@@ -21,7 +21,7 @@ const getSession = async (session: string | null) => {
       },
     })
 
-    const data: Session = await response.json()
+    const data: { packages_count: number; stargazer: Stargazer } = await response.json()
 
     return data
   } catch (e) {
@@ -64,7 +64,7 @@ export default async function og(req: NextRequest) {
           <div tw="text-white flex flex-row text-4xl pl-[103px] pt-[299px]">
             {data.stargazer?.username} has just starred{" "}
             <span tw="ml-1 text-yellow-400 font-black" style={{ fontWeight: "bold" }}>
-              {data.packages?.length}
+              {data.packages_count}
             </span>
             <span tw="ml-1 mr-2 font-bold">projects</span> on Github !
           </div>

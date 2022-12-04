@@ -26,6 +26,7 @@ type Session {
   id: ID!
   packages: [Package!]
   stargazer: Stargazer
+  processed_at: DateTime
 }
 type Stargazer {
   username: String!
@@ -96,6 +97,11 @@ enum Status {
   DONE
   PENDING
   ERROR
+}
+enum PackageType {
+  PHP
+  NPM
+  OTHER
 }
 "Directions for ordering a list of records."
 enum SortOrder {

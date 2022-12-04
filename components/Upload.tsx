@@ -73,7 +73,11 @@ export default function Upload() {
       </div>
       {error && (
         <div className="text-red-500 text-center w-full mt-2 bg-red-800/20 border border-red-800 p-2 rounded-lg text-sm">
-          We were unable to process your file. Reason: {error.message}
+          We were unable to process your file. Reason:{" "}
+          {
+            //@ts-ignore
+            error.graphQLErrors[0].extensions.validation.upload[0]
+          }
         </div>
       )}
     </>
