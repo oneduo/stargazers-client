@@ -23,7 +23,7 @@ export default function Hero({ logos }: Props) {
             </div>
             <div className="mt-20 flex flex-col gap-6 w-full">
               <div>
-                <a href="https://twitter.com/iamcharaf" className="inline-flex space-x-4">
+                <a href="https://github.com/oneduo/stargazers/discussions/1" className="inline-flex space-x-4">
                   <span className="rounded-lg bg-emerald-50 dark:bg-emerald-800/40 border border-emerald-500 px-2 py-0.5 text-xs uppercase font-semibold text-emerald-500">
                     New
                   </span>
