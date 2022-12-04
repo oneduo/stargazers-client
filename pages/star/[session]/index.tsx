@@ -233,7 +233,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     }
   } catch (e) {
-    console.log(e)
     captureException(e)
 
     return {

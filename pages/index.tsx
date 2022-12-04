@@ -51,7 +51,7 @@ export default function Home({ statistics, logos }: Props) {
 
 export async function getServerSideProps() {
   let logos: string[] = [
-    "Beyondcode.svg",
+    // "Beyondcode.svg",
     "Jest.svg",
     "Laravel.svg",
     "Next.svg",
@@ -62,14 +62,18 @@ export async function getServerSideProps() {
     "Preact.svg",
     "React.svg",
     "Slim.svg",
-    "Spatie.svg",
+    // "Spatie.svg",
     "Statamic.svg",
     "Symfony.svg",
     "Tailwindcss.svg",
-    "Tighten.svg",
+    // "Tighten.svg",
     "Vite.svg",
     "Vue.svg",
     "Wordpress.svg",
+    "Faker.svg",
+    "Inertia.svg",
+    "Yii.svg",
+    "Bootstrap.svg",
   ]
 
   let statistics: Statistics = {
