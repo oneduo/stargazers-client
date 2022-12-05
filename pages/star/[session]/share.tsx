@@ -34,6 +34,9 @@ const Session = ({ packages, username, session }: Props) => {
           ],
           type: "website",
         }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
       />
       <AppLayout withoutSidebar={true}>
         <div className="relative">

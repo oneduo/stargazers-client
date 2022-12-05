@@ -25,6 +25,9 @@ export default function Index() {
           ],
           type: "website",
         }}
+        twitter={{
+            cardType: 'summary_large_image',
+        }}
       />
       <AppLayout>{step.component && <step.component />}</AppLayout>
     </>

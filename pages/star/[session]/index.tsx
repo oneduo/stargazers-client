@@ -123,6 +123,9 @@ const Session = ({ session, packages: ssrPackages, alreadyProcessed }: Props) =>
           ],
           type: "website",
         }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
       />
       <AppLayout>
         {packages && finished && (
