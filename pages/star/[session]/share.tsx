@@ -30,6 +30,8 @@ const Session = ({ packages, username, session }: Props) => {
           images: [
             {
               url: `${process.env.NEXT_PUBLIC_APP_URL}/api/og?session=${session}`,
+              width: 1200,
+              height: 630,
             },
           ],
           type: "website",

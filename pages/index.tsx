@@ -28,6 +28,8 @@ export default function Home({ statistics, logos }: Props) {
           images: [
             {
               url: `${process.env.NEXT_PUBLIC_APP_URL}/default.png`,
+              width: 1200,
+              height: 630,
             },
           ],
           type: "website",
