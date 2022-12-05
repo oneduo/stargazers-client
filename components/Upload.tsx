@@ -12,6 +12,8 @@ import { captureException } from "@sentry/core"
 export default function Upload() {
   const [mutate, { data, loading, error }] = useMutation<{ upload: Package[] }>(UPLOAD_MUTATION)
 
+    console.log({error})
+
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       try {
@@ -78,7 +80,7 @@ export default function Upload() {
           We were unable to process your file. Reason:{" "}
           {
             //@ts-ignore
-            error.graphQLErrors[0].extensions.validation.upload[0]
+            error.graphQLErrors[0]?.extensions?.validation?.file[0]
           }
         </div>
       )}
