@@ -8,11 +8,12 @@ import UPLOAD_MUTATION from "@/graphql/upload"
 import useStore from "@/utils/store"
 import type { Package } from "@/generated/graphql"
 import { captureException } from "@sentry/core"
+import splitbee from "@splitbee/web"
 
 export default function Upload() {
   const [mutate, { data, loading, error }] = useMutation<{ upload: Package[] }>(UPLOAD_MUTATION)
 
-    console.log({error})
+  console.log({ error })
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
@@ -22,7 +23,7 @@ export default function Upload() {
         captureException(e)
       }
 
-      window.fathom?.trackGoal("GNHE0BMC", 0)
+      await splitbee.track("uploaded file")
     },
     [mutate],
   )

@@ -18,6 +18,7 @@ import { NextSeo } from "next-seo"
 import { useRouter } from "next/router"
 import Image from "next/image"
 import SESSION_QUERY from "@/graphql/session"
+import splitbee from "@splitbee/web"
 
 interface Props {
   packages: Package[]
@@ -58,6 +59,8 @@ const Session = ({ session, packages: ssrPackages, alreadyProcessed }: Props) =>
     if (session) {
       setChannel(pusher?.subscribe(`session.${session}`))
 
+      splitbee.track("connect websockets")
+
       return () => {
         pusher?.unsubscribe(`session.${session}`)
       }
@@ -77,8 +80,10 @@ const Session = ({ session, packages: ssrPackages, alreadyProcessed }: Props) =>
 
     channel?.bind("session.finished", () => {
       pusher?.unsubscribe(`session.${session}`)
+
+      splitbee.track("disconnect websockets")
     })
-  }, [channel, replacePackage])
+  }, [channel, pusher, replacePackage, session])
 
   useEffect(() => {
     setStep(steps.find((step) => step.key === "processing") ?? steps[0])
@@ -108,7 +113,7 @@ const Session = ({ session, packages: ssrPackages, alreadyProcessed }: Props) =>
       }, 1500)
     })
 
-    window.fathom?.trackGoal("KAVLYTD4", 0)
+    splitbee.track("copied link")
   }
 
   return (
@@ -126,7 +131,7 @@ const Session = ({ session, packages: ssrPackages, alreadyProcessed }: Props) =>
           type: "website",
         }}
         twitter={{
-          cardType: 'summary_large_image',
+          cardType: "summary_large_image",
         }}
       />
       <AppLayout>
