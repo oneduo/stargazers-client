@@ -6,6 +6,7 @@ import STAR_MUTATION from "@/graphql/star"
 import Button from "@/components/Button"
 import { captureException } from "@sentry/core"
 import ProjectLogo from "@/components/ProjectLogo"
+import splitbee from "@splitbee/web"
 
 const stargazersPackage: Package = {
   id: "1",
@@ -57,11 +58,11 @@ export default function Selection() {
 
     try {
       await mutate({ variables: { packages: selection.map((s) => s.id) } })
-
-      window.fathom?.trackGoal("1BEIS30X", 0)
     } catch (e) {
       captureException(e)
     }
+
+    await splitbee.track("selected packages")
   }
 
   useEffect(() => {

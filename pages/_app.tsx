@@ -5,28 +5,11 @@ import { ApolloProvider } from "@apollo/client"
 import client from "../utils/apollo"
 import Head from "next/head"
 import { Analytics } from "@vercel/analytics/react"
-import * as Fathom from "fathom-client"
 import { useRouter } from "next/router"
-import { useEffect } from "react"
+import Script from "next/script"
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
-
-  useEffect(() => {
-    Fathom.load("QHUIQPQZ", {
-      includedDomains: ["stargazers.app", "www.stargazers.app"],
-    })
-
-    function onRouteChangeComplete() {
-      Fathom.trackPageview()
-    }
-
-    router.events.on("routeChangeComplete", onRouteChangeComplete)
-
-    return () => {
-      router.events.off("routeChangeComplete", onRouteChangeComplete)
-    }
-  }, [router.events])
 
   if (router.asPath === "/maintenance") {
     return <Component {...pageProps} />
@@ -48,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </div>
       </ApolloProvider>
       <Analytics />
+      <Script src="https://cdn.splitbee.io/sb.js" async data-no-cookie data-token="I7KC2MJZHVU6" data-respect-dnt />
     </>
   )
 }

@@ -4,6 +4,7 @@ import Selection from "@/components/Selection"
 import Login from "@/components/Login"
 import type { Step } from "../types"
 import type { Package } from "../generated/graphql"
+import splitbee from "@splitbee/web"
 
 const steps: Step[] = [
   {
@@ -45,29 +46,51 @@ export interface State {
   reset: () => void
 }
 
-const useStore = create<State>()((set) => ({
+const useStore = create<State>()((set, get) => ({
   step: steps[0],
   steps,
   packages: [],
   setStep: (step: Step) => set({ step }),
-  nextStep: () =>
-    set((state) => ({
-      step: steps[Math.min(steps.findIndex((s) => s.key === state.step.key) + 1, steps.length - 1)],
-    })),
-  previousStep: () =>
-    set((state) => ({
-      step: steps[Math.max(steps.findIndex((s) => s.key === state.step.key) - 1, 0)],
-    })),
+  nextStep: () => {
+    const nextStep = steps[Math.min(steps.findIndex((s) => s.key === get().step.key) + 1, steps.length - 1)]
+
+    splitbee.track("next step", {
+      from: get().step.key,
+      to: nextStep.key,
+    })
+
+    return set((state) => ({
+      step: nextStep,
+    }))
+  },
+  previousStep: () => {
+    const previousStep = steps[Math.max(steps.findIndex((s) => s.key === get().step.key) - 1, 0)]
+
+    splitbee.track("previous step", {
+      from: get().step.key,
+      to: previousStep.key,
+    })
+
+    return set((state) => ({
+      step: previousStep,
+    }))
+  },
   setPackages: (packages) => {
+    splitbee.track("set packages")
+
     set({ packages })
   },
   setLoginUrl: (url) => {
+    splitbee.track("prepare github login")
+
     set({ loginUrl: url })
   },
   reset: () => {
     set({ step: steps[0], packages: [], loginUrl: undefined })
   },
   replacePackage: (_package) => {
+    splitbee.track("handled package")
+
     set((state) => ({
       packages: state.packages.map((p) => (p.id.toString() === _package.id.toString() ? _package : p)),
     }))
