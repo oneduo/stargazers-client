@@ -14,7 +14,7 @@ export default function Example() {
             href="https://github.com/oneduo/stargazers"
             className="inline-flex items-center rounded-md border border-white px-4 py-2 text-sm font-medium text-white hover:bg-white hover:text-black"
           >
-            Check the discussions at Github
+            Check out the discussions at Github
           </a>
         </div>
       </div>
